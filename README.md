@@ -1,2 +1,2 @@
-# docusuarus-plugin-iasql
+# docusaurus-plugin-iasql
 A plugin to automatically generate SQL documentation for docusaurus
