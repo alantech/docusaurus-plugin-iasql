@@ -1,0 +1,46 @@
+{
+  "name": "docusaurus-plugin-iasql",
+  "version": "0.1.1",
+  "description": "A Docusaurus v2 plugin to build API documentation with TypeDoc for IaSQL.",
+  "main": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
+  "bugs": {
+    "url": "https://github.com/iasql/typedoc-plugin-iasql/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iasql/typedoc-plugin-iasql.git",
+    "directory": "packages/docusaurus-plugin-typedoc"
+  },
+  "homepage": "https://github.com/iasql/typedoc-plugin-iasql",
+  "peerDependencies": {
+    "typedoc": ">=0.23.0",
+    "typedoc-plugin-markdown": ">=3.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.10",
+    "copyfiles": "^2.4.1",
+    "typedoc-plugin-markdown": "^3.13.0",
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "lint": "eslint ./src --ext .ts",
+    "build": "rm -rf ./dist && copyfiles --up 1 ./src/**/*.hbs ./dist/ && tsc"
+  },
+  "author": "Yolanda Robla",
+  "keywords": [
+    "docusaurus",
+    "typedoc",
+    "plugin",
+    "markdown",
+    "typescript",
+    "sql"
+  ],
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "typedoc": ">=0.23.0"
+  }
+}
