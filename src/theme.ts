@@ -17,6 +17,7 @@ import {
   prependYAML,
 } from "typedoc-plugin-markdown/dist/utils/front-matter";
 import { FrontMatter, SidebarOptions } from "./types";
+import { camelToSnakeCase } from "./lib/utils";
 
 const CATEGORY_POSITION = {
   [ReflectionKind.Class]: 1,
@@ -135,7 +136,7 @@ export class DocusaurusTheme extends MarkdownTheme {
   getSidebarLabel(page: PageEvent<DeclarationReflection>) {
     const indexLabel =
       this.sidebar.indexLabel ||
-      (this.entryPoints.length > 1 ? "Table of Contents" : "Exports");
+      (this.entryPoints.length > 1 ? "Table of Contents" : "Classes");
 
     if (page.url === this.entryDocument) {
       return page.url === page.project.url
@@ -147,7 +148,9 @@ export class DocusaurusTheme extends MarkdownTheme {
       return indexLabel;
     }
 
-    return this.sidebar.fullNames ? page.model.getFullName() : page.model.name;
+    return this.sidebar.fullNames
+      ? camelToSnakeCase(page.model.getFullName())
+      : camelToSnakeCase(page.model.name);
   }
 
   getSidebarPosition(page: PageEvent<DeclarationReflection>) {
@@ -168,7 +171,7 @@ export class DocusaurusTheme extends MarkdownTheme {
   }
 
   getTitle(page: PageEvent) {
-    const readmeTitle = this.readmeTitle || page.project.name;
+    const readmeTitle = this.readmeTitle || camelToSnakeCase(page.project.name);
     if (page.url === this.entryDocument && page.url !== page.project.url) {
       return readmeTitle;
     }

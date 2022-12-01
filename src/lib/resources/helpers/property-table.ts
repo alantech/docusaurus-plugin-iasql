@@ -1,20 +1,20 @@
-import * as Handlebars from 'handlebars';
-import { DeclarationReflection, ReflectionType } from 'typedoc';
-import { escapeChars, stripLineBreaks } from '../../utils';
+import * as Handlebars from "handlebars";
+import { DeclarationReflection, ReflectionType } from "typedoc";
+import { camelToSnakeCase, escapeChars, stripLineBreaks } from "../../utils";
 
 export default function () {
   Handlebars.registerHelper(
-    'propertyTable',
+    "propertyTable",
     function (this: DeclarationReflection[]) {
       const comments = this.map(
-        (param) => !!param.comment?.hasVisibleComponent(),
+        (param) => !!param.comment?.hasVisibleComponent()
       );
       const hasComments = !comments.every((value) => !value);
 
-      const headers = ['Name', 'Type'];
+      const headers = ["Name", "Type"];
 
       if (hasComments) {
-        headers.push('Description');
+        headers.push("Description");
       }
 
       const flattenParams = (current: any) => {
@@ -22,11 +22,13 @@ export default function () {
           (acc: any, child: any) => {
             const childObj = {
               ...child,
-              name: `${current.name}.${child.name}`,
+              name: `${camelToSnakeCase(current.name)}.${camelToSnakeCase(
+                child.name
+              )}`,
             };
             return parseParams(childObj, acc);
           },
-          [],
+          []
         );
       };
 
@@ -40,7 +42,7 @@ export default function () {
 
       const properties = this.reduce(
         (acc: any, current: any) => parseParams(current, acc),
-        [],
+        []
       );
 
       const rows = properties.map((property) => {
@@ -49,14 +51,14 @@ export default function () {
         const nameCol: string[] = [];
         const name =
           property.name.match(/[\\`\\|]/g) !== null
-            ? escapeChars(getName(property))
-            : `\`${getName(property)}\``;
+            ? escapeChars(camelToSnakeCase(getName(property)))
+            : `\`${camelToSnakeCase(getName(property))}\``;
         nameCol.push(name);
-        row.push(nameCol.join(' '));
+        row.push(nameCol.join(" "));
         row.push(
           Handlebars.helpers.type
             .call(propertyType)
-            .replace(/(?<!\\)\|/g, '\\|'),
+            .replace(/(?<!\\)\|/g, "\\|")
         );
 
         if (hasComments) {
@@ -65,22 +67,22 @@ export default function () {
             row.push(
               stripLineBreaks(Handlebars.helpers.comments(comments)).replace(
                 /\|/g,
-                '\\|',
-              ),
+                "\\|"
+              )
             );
           } else {
-            row.push('-');
+            row.push("-");
           }
         }
-        return `| ${row.join(' | ')} |\n`;
+        return `| ${row.join(" | ")} |\n`;
       });
 
-      const output = `\n| ${headers.join(' | ')} |\n| ${headers
-        .map(() => ':------')
-        .join(' | ')} |\n${rows.join('')}`;
+      const output = `\n| ${headers.join(" | ")} |\n| ${headers
+        .map(() => ":------")
+        .join(" | ")} |\n${rows.join("")}`;
 
       return output;
-    },
+    }
   );
 }
 
@@ -97,7 +99,7 @@ function getPropertyType(property: any) {
 function getName(property: DeclarationReflection) {
   const md: string[] = [];
   if (property.flags.isRest) {
-    md.push('...');
+    md.push("...");
   }
   if (property.getSignature) {
     md.push(`get ${property.getSignature.name}()`);
@@ -106,20 +108,18 @@ function getName(property: DeclarationReflection) {
       `set ${
         property.setSignature.name
       }(${property.setSignature.parameters?.map((parameter) => {
-        return `${parameter.name}:${Handlebars.helpers.type.call(
-          parameter.type,
-          'all',
-          false,
-        )}`;
-      })})`,
+        return `${camelToSnakeCase(
+          parameter.name
+        )}:${Handlebars.helpers.type.call(parameter.type, "all", false)}`;
+      })})`
     );
   } else {
     md.push(property.name);
   }
   if (property.flags.isOptional) {
-    md.push('?');
+    md.push("?");
   }
-  return md.join('');
+  return md.join("");
 }
 
 function getComments(property: DeclarationReflection) {

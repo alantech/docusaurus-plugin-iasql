@@ -5,7 +5,7 @@ import {
   ReflectionGroup,
 } from "typedoc";
 import { MarkdownTheme } from "../../theme";
-import { escapeChars } from "../../utils";
+import { camelToSnakeCase, escapeChars } from "../../utils";
 
 export default function (theme: MarkdownTheme) {
   Handlebars.registerHelper(
@@ -22,9 +22,9 @@ export default function (theme: MarkdownTheme) {
       function pushGroup(group: ReflectionGroup, md: string[]) {
         const children = group.children.map(
           (child) =>
-            `- [${escapeChars(child.name)}](${Handlebars.helpers.relativeURL(
-              child.url
-            )})`
+            `- [${camelToSnakeCase(
+              escapeChars(child.name)
+            )}](${Handlebars.helpers.relativeURL(child.url)})`
         );
         md.push(children.join("\n"));
       }

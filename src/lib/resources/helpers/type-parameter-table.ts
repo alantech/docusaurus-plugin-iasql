@@ -1,13 +1,13 @@
-import * as Handlebars from 'handlebars';
-import { TypeParameterReflection } from 'typedoc';
-import { stripLineBreaks } from '../../utils';
+import * as Handlebars from "handlebars";
+import { TypeParameterReflection } from "typedoc";
+import { camelToSnakeCase, stripLineBreaks } from "../../utils";
 
 export default function () {
   Handlebars.registerHelper(
-    'typeParameterTable',
+    "typeParameterTable",
     function (this: TypeParameterReflection[]) {
       return table(this);
-    },
+    }
   );
 }
 
@@ -15,68 +15,68 @@ function table(parameters: any) {
   const showTypeCol = hasTypes(parameters);
 
   const comments = parameters.map(
-    (param) => !!param.comment?.hasVisibleComponent(),
+    (param) => !!param.comment?.hasVisibleComponent()
   );
 
   const hasComments = !comments.every((value) => !value);
 
-  const headers = ['Name'];
+  const headers = ["Name"];
 
   if (showTypeCol) {
-    headers.push('Type');
+    headers.push("Type");
   }
 
   if (hasComments) {
-    headers.push('Description');
+    headers.push("Description");
   }
 
   const rows = parameters.map((parameter) => {
     const row: string[] = [];
 
-    row.push(`\`${parameter.name}\``);
+    row.push(`\`${camelToSnakeCase(parameter.name)}\``);
 
     if (showTypeCol) {
       const typeCol: string[] = [];
       if (!parameter.type && !parameter.default) {
-        typeCol.push(`\`${parameter.name}\``);
+        typeCol.push(`\`${camelToSnakeCase(parameter.name)}\``);
       }
       if (parameter.type) {
         typeCol.push(
-          `extends ${Handlebars.helpers.type.call(parameter.type, 'object')}`,
+          `extends ${Handlebars.helpers.type.call(parameter.type, "object")}`
         );
       }
       if (parameter.default) {
         if (parameter.type) {
-          typeCol.push(' = ');
+          typeCol.push(" = ");
         }
         typeCol.push(Handlebars.helpers.type.call(parameter.default));
       }
-      row.push(typeCol.join(''));
+      row.push(typeCol.join(""));
     }
 
     if (hasComments) {
       if (parameter.comment?.summary) {
         row.push(
           stripLineBreaks(
-            Handlebars.helpers.comment(parameter.comment?.summary),
-          ).replace(/\|/g, '\\|'),
+            Handlebars.helpers.comment(parameter.comment?.summary)
+          ).replace(/\|/g, "\\|")
         );
       } else {
-        row.push('-');
+        row.push("-");
       }
     }
-    return `| ${row.join(' | ')} |\n`;
+    return `| ${row.join(" | ")} |\n`;
   });
 
-  const output = `\n| ${headers.join(' | ')} |\n| ${headers
-    .map(() => ':------')
-    .join(' | ')} |\n${rows.join('')}`;
+  const output = `\n| ${headers.join(" | ")} |\n| ${headers
+    .map(() => ":------")
+    .join(" | ")} |\n${rows.join("")}`;
   return output;
 }
 
 function hasTypes(parameters: TypeParameterReflection[]) {
   const types = (parameters as TypeParameterReflection[]).map(
-    (param) => !!param.type || !!param.default,
+    (param) => !!param.type || !!param.default
   );
   return !types.every((value) => !value);
 }

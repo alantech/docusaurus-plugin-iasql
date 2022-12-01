@@ -1,52 +1,57 @@
-import * as Handlebars from 'handlebars';
+import * as Handlebars from "handlebars";
 import {
   DeclarationReflection,
   LiteralType,
   ParameterReflection,
   ReflectionKind,
   ReflectionType,
-} from 'typedoc';
-import { MarkdownTheme } from '../../theme';
+} from "typedoc";
+import { MarkdownTheme } from "../../theme";
 import {
+  camelToSnakeCase,
   escapeChars,
   memberSymbol,
   stripComments,
   stripLineBreaks,
-} from '../../utils';
+} from "../../utils";
 
 export default function (theme: MarkdownTheme) {
   Handlebars.registerHelper(
-    'declarationTitle',
+    "declarationTitle",
     function (this: ParameterReflection | DeclarationReflection) {
       const md = theme.hideMembersSymbol ? [] : [memberSymbol(this)];
 
       function getType(
-        reflection: ParameterReflection | DeclarationReflection,
+        reflection: ParameterReflection | DeclarationReflection
       ) {
         const reflectionType = reflection.type as ReflectionType;
         if (reflectionType && reflectionType.declaration?.children) {
-          return ': `Object`';
+          return ": `Object`";
         }
         return (
-          (reflection.parent?.kindOf(ReflectionKind.Enum) ? ' = ' : ': ') +
+          (reflection.parent?.kindOf(ReflectionKind.Enum) ? " = " : ": ") +
           Handlebars.helpers.type.call(
             reflectionType ? reflectionType : reflection,
-            'object',
+            "object"
           )
         );
       }
 
       if (this.flags && this.flags.length > 0 && !this.flags.isRest) {
-        md.push(' ' + this.flags.map((flag) => `\`${flag}\``).join(' '));
+        md.push(" " + this.flags.map((flag) => `\`${flag}\``).join(" "));
       }
       md.push(
-        `${this.flags.isRest ? '... ' : ''} **${escapeChars(this.name)}**`,
+        `${this.flags.isRest ? "... " : ""} **${escapeChars(
+          camelToSnakeCase(this.name)
+        )}**`
       );
       if (this instanceof DeclarationReflection && this.typeParameters) {
         md.push(
           `<${this.typeParameters
-            .map((typeParameter) => `\`${typeParameter.name}\``)
-            .join(', ')}\\>`,
+            .map(
+              (typeParameter) => `\`${camelToSnakeCase(typeParameter.name)}\``
+            )
+            .join(", ")}\\>`
         );
       }
 
@@ -55,11 +60,12 @@ export default function (theme: MarkdownTheme) {
       if (
         !(this.type instanceof LiteralType) &&
         this.defaultValue &&
-        this.defaultValue !== '...'
+        this.defaultValue !== "..."
       ) {
+        console.log("In type");
         md.push(` = \`${stripLineBreaks(stripComments(this.defaultValue))}\``);
       }
-      return md.join('');
-    },
+      return md.join("");
+    }
   );
 }

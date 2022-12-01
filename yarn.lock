@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@supercharge/strings@^1.29.1":
+  version "1.29.1"
+  resolved "https://registry.yarnpkg.com/@supercharge/strings/-/strings-1.29.1.tgz#56321ffd52eeb605026d270d5f4075307277ec87"
+  integrity sha512-jKosdS9r2icnwGAiv0Oqn9XJUo9qq7JuLLKGTCpivvOpfb/dSQhIbV3mw6W3vm5sZmignutcRskaavcMsnOIUA==
+  dependencies:
+    uuid "~8.3.2"
+
 "@types/node@^18.11.10":
   version "18.11.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.10.tgz#4c64759f3c2343b7e6c4b9caf761c7a3a05cee34"
@@ -373,6 +380,11 @@ util@^0.10.3:
   integrity sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==
   dependencies:
     inherits "2.0.3"
+
+uuid@~8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 vscode-oniguruma@^1.6.1:
   version "1.7.0"

@@ -1,27 +1,11 @@
 {{#unless hasOwnDocument}}
 
 {{#if name}}
-
-### {{#ifNamedAnchors}}<a id="{{anchor}}" name="{{this.anchor}}"></a> {{/ifNamedAnchors}}{{ escape name }}
-
 {{/if}}
-
 {{/unless}}
-
 {{#if signatures}}
-
-{{#each signatures}}
-
-{{> member.signature showSources=true }}
-
-{{/each}}
-
 {{else}}
-
 {{#if hasGetterOrSetter}}
-
-{{> member.getterSetter}}
-
 {{else}}
 
 {{#ifIsReference}}

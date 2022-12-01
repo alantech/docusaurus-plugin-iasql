@@ -66,3 +66,15 @@ export function camelToTitleCase(text: string) {
     text.substring(1).replace(/[a-z][A-Z]/g, (x) => `${x[0]} ${x[1]}`)
   );
 }
+
+export function camelToSnakeCase(text: string) {
+  if (text) {
+    if (!(text.toUpperCase() == text)) {
+      const result = text.replace(/[A-Z]/g, (letter, index) => {
+        return index == 0 ? letter.toLowerCase() : "_" + letter.toLowerCase();
+      });
+      if (result.endsWith("_enum")) return result.slice(0, -5);
+      else return result;
+    } else return text;
+  } else return "";
+}

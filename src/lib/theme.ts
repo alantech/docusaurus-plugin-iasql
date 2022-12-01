@@ -286,7 +286,6 @@ export class MarkdownTheme extends Theme {
       );
     }
     this.mappings.forEach((mapping) => {
-      console.log("in mapping");
       const kind = mapping.kind[0];
       const items = project.getReflectionsByKind(kind);
       if (items.length > 0) {
