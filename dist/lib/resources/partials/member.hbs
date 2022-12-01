@@ -1,0 +1,29 @@
+{{#unless hasOwnDocument}}
+
+{{#if name}}
+{{/if}}
+{{/unless}}
+{{#if signatures}}
+{{else}}
+{{#if hasGetterOrSetter}}
+{{else}}
+
+{{#ifIsReference}}
+
+{{referenceMember}}
+
+{{else}}
+
+{{> member.declaration}}
+
+{{/ifIsReference}}
+
+{{/if}}
+
+{{/if}}
+
+{{#unless @last}}
+{{#unless hasOwnDocument}}
+___
+{{/unless}}
+{{/unless}}
