@@ -24,7 +24,9 @@ export default function (theme: MarkdownTheme) {
       function getType(
         reflection: ParameterReflection | DeclarationReflection
       ) {
+        console.log("in get type");
         const reflectionType = reflection.type as ReflectionType;
+        console.log(reflectionType);
         if (reflectionType && reflectionType.declaration?.children) {
           return ": `Object`";
         }

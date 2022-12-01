@@ -1,7 +1,7 @@
 import { ReflectionKind } from "typedoc";
 
 const PLURALS = {
-  [ReflectionKind.Class]: "Classes",
+  [ReflectionKind.Class]: "Tables",
   [ReflectionKind.Property]: "Properties",
   [ReflectionKind.Enum]: "Enumerations",
   [ReflectionKind.EnumMember]: "Enumeration members",

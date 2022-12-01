@@ -112,7 +112,7 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
     }
     getSidebarLabel(page) {
         const indexLabel = this.sidebar.indexLabel ||
-            (this.entryPoints.length > 1 ? "Table of Contents" : "Classes");
+            (this.entryPoints.length > 1 ? "Table of Contents" : "Tables");
         if (page.url === this.entryDocument) {
             return page.url === page.project.url
                 ? indexLabel

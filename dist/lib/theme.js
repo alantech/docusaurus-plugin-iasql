@@ -214,8 +214,6 @@ class MarkdownTheme extends typedoc_1.Theme {
                 const children = items
                     .map((item) => {
                     var _a;
-                    console.log("in item");
-                    console.log(item.getFullName());
                     return createNavigationItem(item.getFullName(), (_a = getUrlMapping(item.name)) === null || _a === void 0 ? void 0 : _a.url, true);
                 })
                     .sort((a, b) => (a.title > b.title ? 1 : -1));

@@ -291,8 +291,6 @@ export class MarkdownTheme extends Theme {
       if (items.length > 0) {
         const children = items
           .map((item) => {
-            console.log("in item");
-            console.log(item.getFullName());
             return createNavigationItem(
               item.getFullName(),
               (getUrlMapping(item.name) as any)?.url as string,

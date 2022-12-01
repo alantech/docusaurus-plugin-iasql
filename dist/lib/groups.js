@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getKindPlural = void 0;
 const typedoc_1 = require("typedoc");
 const PLURALS = {
-    [typedoc_1.ReflectionKind.Class]: "Classes",
+    [typedoc_1.ReflectionKind.Class]: "Tables",
     [typedoc_1.ReflectionKind.Property]: "Properties",
     [typedoc_1.ReflectionKind.Enum]: "Enumerations",
     [typedoc_1.ReflectionKind.EnumMember]: "Enumeration members",
