@@ -175,7 +175,11 @@ export class DocusaurusTheme extends MarkdownTheme {
     if (page.url === this.entryDocument && page.url !== page.project.url) {
       return readmeTitle;
     }
-    return getPageTitle(page);
+    let result = getPageTitle(page);
+
+    // rename class to table
+    result = result.replace("Class", "Table");
+    return result;
   }
 
   get mappings() {

@@ -24,12 +24,11 @@ export default function (theme: MarkdownTheme) {
       function getType(
         reflection: ParameterReflection | DeclarationReflection
       ) {
-        console.log("in get type");
         const reflectionType = reflection.type as ReflectionType;
-        console.log(reflectionType);
         if (reflectionType && reflectionType.declaration?.children) {
-          return ": `Object`";
+          return ":bbbbbb `Object`";
         }
+
         return (
           (reflection.parent?.kindOf(ReflectionKind.Enum) ? " = " : ": ") +
           Handlebars.helpers.type.call(
@@ -64,7 +63,6 @@ export default function (theme: MarkdownTheme) {
         this.defaultValue &&
         this.defaultValue !== "..."
       ) {
-        console.log("In type");
         md.push(` = \`${stripLineBreaks(stripComments(this.defaultValue))}\``);
       }
       return md.join("");

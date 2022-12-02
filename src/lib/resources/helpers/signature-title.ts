@@ -39,7 +39,7 @@ export default function (theme: MarkdownTheme) {
       md.push(`(${getParameters(this.parameters)})`);
 
       if (this.type && !this.parent?.kindOf(ReflectionKind.Constructor)) {
-        md.push(`: ${Handlebars.helpers.type.call(this.type, "object")}`);
+        md.push(`:cccccc ${Handlebars.helpers.type.call(this.type, "object")}`);
       }
       return md.join("") + (standalone ? "\n" : "");
     }
