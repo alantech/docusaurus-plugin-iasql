@@ -1,15 +1,15 @@
-import { PluginOptions } from './types';
+import { PluginOptions } from "./types";
 
 const DEFAULT_PLUGIN_OPTIONS: PluginOptions = {
-  id: 'default',
-  docsRoot: 'docs',
-  out: 'sql',
+  id: "default",
+  docsRoot: "docs",
+  out: "sql",
   cleanOutputDir: true,
   sidebar: {
     fullNames: false,
-    categoryLabel: 'SQL reference',
+    categoryLabel: "SQL reference",
     indexLabel: undefined,
-    readmeLabel: 'Readme',
+    readmeLabel: "Introduction",
     position: null,
     autoConfiguration: true,
   },
@@ -17,17 +17,17 @@ const DEFAULT_PLUGIN_OPTIONS: PluginOptions = {
   hideBreadcrumbs: true,
   hidePageTitle: true,
   hideMembersSymbol: false,
-  entryDocument: 'index.md',
-  plugin: ['none'],
+  entryDocument: "sql_reference.md",
+  plugin: ["none"],
   watch: false,
   includeExtension: true,
   indexSlug: undefined,
-  theme: 'docusaurus',
+  theme: "docusaurus",
   frontmatter: undefined,
 };
 
 export const getPluginOptions = (
-  opts: Partial<PluginOptions>,
+  opts: Partial<PluginOptions>
 ): PluginOptions => {
   const options = {
     ...DEFAULT_PLUGIN_OPTIONS,

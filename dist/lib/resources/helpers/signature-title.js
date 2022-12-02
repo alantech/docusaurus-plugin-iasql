@@ -49,7 +49,7 @@ function default_1(theme) {
         }
         md.push(`(${getParameters(this.parameters)})`);
         if (this.type && !((_b = this.parent) === null || _b === void 0 ? void 0 : _b.kindOf(typedoc_1.ReflectionKind.Constructor))) {
-            md.push(`: ${Handlebars.helpers.type.call(this.type, "object")}`);
+            md.push(`:cccccc ${Handlebars.helpers.type.call(this.type, "object")}`);
         }
         return md.join("") + (standalone ? "\n" : "");
     });

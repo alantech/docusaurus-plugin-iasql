@@ -72,8 +72,6 @@ class MarkdownTheme extends typedoc_1.Theme {
             urls.push(new typedoc_1.UrlMapping(this.entryDocument, project, this.getReflectionTemplate()));
         }
         else {
-            project.url = this.globalsFile;
-            urls.push(new typedoc_1.UrlMapping(this.globalsFile, project, this.getReflectionTemplate()));
             urls.push(new typedoc_1.UrlMapping(this.entryDocument, project, this.getIndexTemplate()));
         }
         (_a = project.children) === null || _a === void 0 ? void 0 : _a.forEach((child) => {
@@ -276,7 +274,7 @@ class MarkdownTheme extends typedoc_1.Theme {
             page.model instanceof typedoc_1.DeclarationReflection ? page.model : undefined;
     }
     get globalsFile() {
-        return "index.md";
+        return "sql_reference.md";
     }
 }
 exports.MarkdownTheme = MarkdownTheme;

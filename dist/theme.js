@@ -141,11 +141,13 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
         return path.basename(page.url, path.extname(page.url));
     }
     getTitle(page) {
-        const readmeTitle = this.readmeTitle || (0, utils_1.camelToSnakeCase)(page.project.name);
+        const readmeTitle = this.readmeTitle || page.project.name;
         if (page.url === this.entryDocument && page.url !== page.project.url) {
             return readmeTitle;
         }
-        return (0, front_matter_1.getPageTitle)(page);
+        let result = (0, front_matter_1.getPageTitle)(page);
+        result = result.replace("Class", "Table");
+        return result;
     }
     get mappings() {
         return super.mappings.map((mapping) => {
@@ -153,7 +155,7 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
         });
     }
     get globalsFile() {
-        return "index.md";
+        return "sql_reference.md";
     }
 }
 __decorate([

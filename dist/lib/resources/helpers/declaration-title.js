@@ -31,11 +31,9 @@ function default_1(theme) {
         const md = theme.hideMembersSymbol ? [] : [(0, utils_1.memberSymbol)(this)];
         function getType(reflection) {
             var _a, _b;
-            console.log("in get type");
             const reflectionType = reflection.type;
-            console.log(reflectionType);
             if (reflectionType && ((_a = reflectionType.declaration) === null || _a === void 0 ? void 0 : _a.children)) {
-                return ": `Object`";
+                return ":bbbbbb `Object`";
             }
             return ((((_b = reflection.parent) === null || _b === void 0 ? void 0 : _b.kindOf(typedoc_1.ReflectionKind.Enum)) ? " = " : ": ") +
                 Handlebars.helpers.type.call(reflectionType ? reflectionType : reflection, "object"));
@@ -53,7 +51,6 @@ function default_1(theme) {
         if (!(this.type instanceof typedoc_1.LiteralType) &&
             this.defaultValue &&
             this.defaultValue !== "...") {
-            console.log("In type");
             md.push(` = \`${(0, utils_1.stripLineBreaks)((0, utils_1.stripComments)(this.defaultValue))}\``);
         }
         return md.join("");

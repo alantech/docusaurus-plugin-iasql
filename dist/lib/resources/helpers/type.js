@@ -97,7 +97,6 @@ function getReflectionType(model, collapse) {
 }
 exports.getReflectionType = getReflectionType;
 function getDeclarationType(model) {
-    console.log("in declaration type");
     if (model.indexSignature || model.children) {
         let indexSignature = "";
         const declarationIndexSignature = model.indexSignature;
@@ -107,7 +106,6 @@ function getDeclarationType(model) {
                 : "";
             const obj = Handlebars.helpers.type.call(declarationIndexSignature.type);
             indexSignature = `${key}: ${obj}; `;
-            console.log(indexSignature);
         }
         const types = model.children &&
             model.children.map((obj) => {
@@ -115,7 +113,6 @@ function getDeclarationType(model) {
                     ? `= ${(0, utils_1.escapeChars)(obj.defaultValue)}`
                     : ""}`;
             });
-        console.log("in children");
         return `{ ${indexSignature ? indexSignature : ""}${types ? types.join("; ") : ""} }${model.defaultValue && model.defaultValue !== "..."
             ? `= ${(0, utils_1.escapeChars)(model.defaultValue)}`
             : ""}`;

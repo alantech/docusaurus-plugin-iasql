@@ -100,10 +100,6 @@ export class MarkdownTheme extends Theme {
         )
       );
     } else {
-      project.url = this.globalsFile;
-      urls.push(
-        new UrlMapping(this.globalsFile, project, this.getReflectionTemplate())
-      );
       urls.push(
         new UrlMapping(this.entryDocument, project, this.getIndexTemplate())
       );
@@ -378,6 +374,6 @@ export class MarkdownTheme extends Theme {
   }
 
   get globalsFile() {
-    return "index.md";
+    return "sql_reference.md";
   }
 }

@@ -57,20 +57,18 @@ function camelToTitleCase(text) {
 }
 exports.camelToTitleCase = camelToTitleCase;
 function camelToSnakeCase(text) {
+    let result = "";
     if (text) {
         if (!(text.toUpperCase() == text)) {
-            const result = text.replace(/[A-Z]/g, (letter, index) => {
+            result = text.replace(/[A-Z]/g, (letter, index) => {
                 return index == 0 ? letter.toLowerCase() : "_" + letter.toLowerCase();
             });
-            if (result.endsWith("_enum"))
-                return result.slice(0, -5);
-            else
-                return result;
         }
-        else
-            return text;
     }
-    else
-        return "";
+    if (result.endsWith("_enum"))
+        result = result.slice(0, -5);
+    if (result.endsWith("_rpc"))
+        result = result.slice(0, -4);
+    return result;
 }
 exports.camelToSnakeCase = camelToSnakeCase;

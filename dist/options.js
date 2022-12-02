@@ -2,15 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPluginOptions = void 0;
 const DEFAULT_PLUGIN_OPTIONS = {
-    id: 'default',
-    docsRoot: 'docs',
-    out: 'sql',
+    id: "default",
+    docsRoot: "docs",
+    out: "sql",
     cleanOutputDir: true,
     sidebar: {
         fullNames: false,
-        categoryLabel: 'SQL reference',
+        categoryLabel: "SQL reference",
         indexLabel: undefined,
-        readmeLabel: 'Readme',
+        readmeLabel: "Introduction",
         position: null,
         autoConfiguration: true,
     },
@@ -18,12 +18,12 @@ const DEFAULT_PLUGIN_OPTIONS = {
     hideBreadcrumbs: true,
     hidePageTitle: true,
     hideMembersSymbol: false,
-    entryDocument: 'index.md',
-    plugin: ['none'],
+    entryDocument: "sql_reference.md",
+    plugin: ["none"],
     watch: false,
     includeExtension: true,
     indexSlug: undefined,
-    theme: 'docusaurus',
+    theme: "docusaurus",
     frontmatter: undefined,
 };
 const getPluginOptions = (opts) => {

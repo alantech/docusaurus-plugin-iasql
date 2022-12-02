@@ -171,7 +171,7 @@ export class DocusaurusTheme extends MarkdownTheme {
   }
 
   getTitle(page: PageEvent) {
-    const readmeTitle = this.readmeTitle || camelToSnakeCase(page.project.name);
+    const readmeTitle = this.readmeTitle || page.project.name;
     if (page.url === this.entryDocument && page.url !== page.project.url) {
       return readmeTitle;
     }
@@ -189,7 +189,7 @@ export class DocusaurusTheme extends MarkdownTheme {
   }
 
   get globalsFile() {
-    return "index.md";
+    return "sql_reference.md";
   }
 }
 

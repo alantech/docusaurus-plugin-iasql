@@ -27,36 +27,35 @@ const Handlebars = __importStar(require("handlebars"));
 const utils_1 = require("../../utils");
 function default_1(theme) {
     Handlebars.registerHelper("toc", function () {
-        var _a, _b;
+        var _a, _b, _c, _d, _e, _f;
         const md = [];
         const { hideInPageTOC } = theme;
         const isVisible = (_a = this.groups) === null || _a === void 0 ? void 0 : _a.some((group) => group.allChildrenHaveOwnDocument());
-        function pushGroup(group, md) {
-            const children = group.children.map((child) => `- [${(0, utils_1.camelToSnakeCase)((0, utils_1.escapeChars)(child.name))}](${Handlebars.helpers.relativeURL(child.url)})`);
-            md.push(children.join("\n"));
-        }
         if ((!hideInPageTOC && this.groups) || (isVisible && this.groups)) {
             if (!hideInPageTOC) {
                 md.push(`## Table of contents\n\n`);
             }
-            const headingLevel = hideInPageTOC ? `##` : `###`;
-            (_b = this.groups) === null || _b === void 0 ? void 0 : _b.forEach((group) => {
-                const groupTitle = group.title;
-                if (group.categories) {
-                    group.categories.forEach((category) => {
-                        md.push(`${headingLevel} ${category.title} ${groupTitle}\n\n`);
-                        pushGroup(category, md);
-                        md.push("\n");
-                    });
-                }
-                else {
-                    if (!hideInPageTOC || group.allChildrenHaveOwnDocument()) {
-                        md.push(`${headingLevel} ${groupTitle}\n\n`);
-                        pushGroup(group, md);
-                        md.push("\n");
+            for (const child of (_b = this.children) !== null && _b !== void 0 ? _b : []) {
+                if (((_c = child.parent) === null || _c === void 0 ? void 0 : _c.id) == 0 &&
+                    child.kind == 2 &&
+                    !child.name.includes("/") &&
+                    !child.name.includes("ecs_simplified") &&
+                    !child.name.includes("index") &&
+                    !child.name.includes("interfaces") &&
+                    !child.name.includes("subscribers")) {
+                    md.push(`### ${child.name}\n\n`);
+                    for (const child1 of (_d = this.children) !== null && _d !== void 0 ? _d : []) {
+                        if (child1.name.includes(child.name) &&
+                            (child1.name.includes("entity") || child1.name.includes("rpc"))) {
+                            for (const child2 of (_e = child1.children) !== null && _e !== void 0 ? _e : []) {
+                                if (!((_f = child2.url) === null || _f === void 0 ? void 0 : _f.includes("modules"))) {
+                                    md.push(`[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
+                                }
+                            }
+                        }
                     }
                 }
-            });
+            }
         }
         return md.length > 0 ? md.join("\n") : null;
     });

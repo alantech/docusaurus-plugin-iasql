@@ -1,11 +1,7 @@
 import * as Handlebars from "handlebars";
-import {
-  DeclarationReflection,
-  ProjectReflection,
-  ReflectionGroup,
-} from "typedoc";
+import { DeclarationReflection, ProjectReflection } from "typedoc";
 import { MarkdownTheme } from "../../theme";
-import { camelToSnakeCase, escapeChars } from "../../utils";
+import { camelToSnakeCase } from "../../utils";
 
 export default function (theme: MarkdownTheme) {
   Handlebars.registerHelper(
@@ -19,7 +15,7 @@ export default function (theme: MarkdownTheme) {
         group.allChildrenHaveOwnDocument()
       );
 
-      function pushGroup(group: ReflectionGroup, md: string[]) {
+      /*function pushGroup(group: ReflectionGroup, md: string[]) {
         const children = group.children.map(
           (child) =>
             `- [${camelToSnakeCase(
@@ -27,13 +23,47 @@ export default function (theme: MarkdownTheme) {
             )}](${Handlebars.helpers.relativeURL(child.url)})`
         );
         md.push(children.join("\n"));
-      }
+      }*/
 
       if ((!hideInPageTOC && this.groups) || (isVisible && this.groups)) {
         if (!hideInPageTOC) {
           md.push(`## Table of contents\n\n`);
         }
-        const headingLevel = hideInPageTOC ? `##` : `###`;
+
+        // traverse all children with parent id = 0
+        for (const child of this.children ?? []) {
+          if (
+            child.parent?.id == 0 &&
+            child.kind == 2 &&
+            !child.name.includes("/") &&
+            !child.name.includes("ecs_simplified") &&
+            !child.name.includes("index") &&
+            !child.name.includes("interfaces") &&
+            !child.name.includes("subscribers")
+          ) {
+            // it is a module, print it
+            md.push(`### ${child.name}\n\n`);
+
+            // now need to find the depending modules
+            for (const child1 of this.children ?? []) {
+              if (
+                child1.name.includes(child.name) &&
+                (child1.name.includes("entity") || child1.name.includes("rpc"))
+              ) {
+                // display children
+                for (const child2 of child1.children ?? []) {
+                  if (!child2.url?.includes("modules")) {
+                    md.push(
+                      `[${camelToSnakeCase(child2.name)}](${child2.url})\n\n`
+                    );
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        /*const headingLevel = hideInPageTOC ? `##` : `###`;
         this.groups?.forEach((group) => {
           const groupTitle = group.title;
           if (group.categories) {
@@ -49,7 +79,7 @@ export default function (theme: MarkdownTheme) {
               md.push("\n");
             }
           }
-        });
+        });*/
       }
       return md.length > 0 ? md.join("\n") : null;
     }
