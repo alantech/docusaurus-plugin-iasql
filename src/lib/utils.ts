@@ -77,7 +77,10 @@ export function camelToSnakeCase(text: string) {
       });
     }
   }
+
+  // special cases incorrectly translated
   if (result.endsWith("_enum")) result = result.slice(0, -5);
   if (result.endsWith("_rpc")) result = result.slice(0, -4);
+  result = result.replace("i_d", "id");
   return result;
 }
