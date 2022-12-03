@@ -26,7 +26,7 @@ export default function (theme: MarkdownTheme) {
       ) {
         const reflectionType = reflection.type as ReflectionType;
         if (reflectionType && reflectionType.declaration?.children) {
-          return ":bbbbbb `Object`";
+          return ": `Object`";
         }
 
         return (

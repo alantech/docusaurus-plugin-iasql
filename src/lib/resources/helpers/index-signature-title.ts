@@ -11,7 +11,7 @@ export default function () {
         ? this.parameters.map((parameter) => {
             return `${camelToSnakeCase(
               parameter.name
-            )}:bbbbb ${Handlebars.helpers.type.call(parameter.type)}`;
+            )}: ${Handlebars.helpers.type.call(parameter.type)}`;
           })
         : [];
       md.push(
