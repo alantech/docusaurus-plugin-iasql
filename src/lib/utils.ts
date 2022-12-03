@@ -72,15 +72,24 @@ export function camelToSnakeCase(text: string) {
 
   if (text) {
     if (!(text.toUpperCase() == text)) {
-      result = text.replace(/[A-Z]/g, (letter, index) => {
-        return index == 0 ? letter.toLowerCase() : "_" + letter.toLowerCase();
-      });
+      // first conver to title
+      result = camelToTitleCase(result);
+
+      // then to snake
+      result = (
+        text.match(
+          /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+        ) ?? []
+      )
+        .map((x) => x.toLowerCase())
+        .join("_");
     }
   }
 
   // special cases incorrectly translated
   if (result.endsWith("_enum")) result = result.slice(0, -5);
   if (result.endsWith("_rpc")) result = result.slice(0, -4);
-  result = result.replace("i_d", "id");
+  result = result.replace("i_p_v_6", "ipv6");
+  result = result.replace("s_3", "s3");
   return result;
 }
