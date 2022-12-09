@@ -90,6 +90,7 @@ export function camelToSnakeCase(text: string) {
   if (result.endsWith("_enum")) result = result.slice(0, -5);
   if (result.endsWith("_rpc")) result = result.slice(0, -4);
   result = result.replace("i_p_v_6", "ipv6");
+  result = result.replace("e_c_2", "ec2");
   result = result.replace("s_3", "s3");
   return result;
 }

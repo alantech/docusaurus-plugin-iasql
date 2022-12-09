@@ -33,7 +33,7 @@ function default_1(theme) {
             var _a, _b;
             const reflectionType = reflection.type;
             if (reflectionType && ((_a = reflectionType.declaration) === null || _a === void 0 ? void 0 : _a.children)) {
-                return ":bbbbbb `Object`";
+                return ": `Object`";
             }
             return ((((_b = reflection.parent) === null || _b === void 0 ? void 0 : _b.kindOf(typedoc_1.ReflectionKind.Enum)) ? " = " : ": ") +
                 Handlebars.helpers.type.call(reflectionType ? reflectionType : reflection, "object"));

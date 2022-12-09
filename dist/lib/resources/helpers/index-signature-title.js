@@ -30,7 +30,7 @@ function default_1() {
         const md = ["▪"];
         const parameters = this.parameters
             ? this.parameters.map((parameter) => {
-                return `${(0, utils_1.camelToSnakeCase)(parameter.name)}:bbbbb ${Handlebars.helpers.type.call(parameter.type)}`;
+                return `${(0, utils_1.camelToSnakeCase)(parameter.name)}: ${Handlebars.helpers.type.call(parameter.type)}`;
             })
             : [];
         md.push(`\[${parameters.join("")}\]: ${Handlebars.helpers.type.call(this.type)}`);
