@@ -71,6 +71,7 @@ export function camelToSnakeCase(text: string) {
   let result = "";
 
   if (text) {
+    result = text;
     if (!(text.toUpperCase() == text)) {
       // first conver to title
       result = camelToTitleCase(result);
