@@ -148,9 +148,23 @@ export class DocusaurusTheme extends MarkdownTheme {
       return indexLabel;
     }
 
-    return this.sidebar.fullNames
-      ? camelToSnakeCase(page.model.getFullName())
-      : camelToSnakeCase(page.model.name);
+    const fragments = page.url.split("/");
+    if (fragments.length != 2) {
+      return this.sidebar.fullNames
+        ? camelToSnakeCase(page.model.getFullName())
+        : camelToSnakeCase(page.model.name);
+    } else {
+      const fragments1 = fragments[1].split(".");
+      if (fragments1.length == 3) {
+        const fragments2 = fragments1[0].split("_");
+        const name = fragments2[0] + "_" + fragments2[1];
+        return name + "." + camelToSnakeCase(page.model.name);
+      } else {
+        return this.sidebar.fullNames
+          ? camelToSnakeCase(page.model.getFullName())
+          : camelToSnakeCase(page.model.name);
+      }
+    }
   }
 
   getSidebarPosition(page: PageEvent<DeclarationReflection>) {
