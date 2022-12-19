@@ -112,6 +112,9 @@ export class DocusaurusTheme extends MarkdownTheme {
       items = { ...items, slug: this.indexSlug };
     }
 
+    if (this.sidebar.usedSidebar)
+      items = { ...items, displayed_sidebar: this.sidebar.usedSidebar };
+
     if (this.sidebar.autoConfiguration) {
       if (sidebarLabel && sidebarLabel !== pageTitle) {
         items = { ...items, sidebar_label: sidebarLabel as string };

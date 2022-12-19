@@ -13,6 +13,7 @@ const DEFAULT_PLUGIN_OPTIONS = {
         readmeLabel: "Introduction",
         position: null,
         autoConfiguration: true,
+        usedSidebar: "docs",
     },
     hideInPageTOC: true,
     hideBreadcrumbs: true,

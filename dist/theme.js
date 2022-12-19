@@ -91,6 +91,8 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
         if (page.url === this.entryDocument && this.indexSlug) {
             items = { ...items, slug: this.indexSlug };
         }
+        if (this.sidebar.usedSidebar)
+            items = { ...items, displayed_sidebar: this.sidebar.usedSidebar };
         if (this.sidebar.autoConfiguration) {
             if (sidebarLabel && sidebarLabel !== pageTitle) {
                 items = { ...items, sidebar_label: sidebarLabel };
