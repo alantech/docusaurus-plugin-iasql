@@ -4,7 +4,7 @@ exports.getPluginOptions = void 0;
 const DEFAULT_PLUGIN_OPTIONS = {
     id: "default",
     docsRoot: "docs",
-    out: "sql",
+    out: "reference",
     cleanOutputDir: true,
     sidebar: {
         fullNames: false,

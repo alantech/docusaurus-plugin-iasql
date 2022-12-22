@@ -3,7 +3,7 @@ import { PluginOptions } from "./types";
 const DEFAULT_PLUGIN_OPTIONS: PluginOptions = {
   id: "default",
   docsRoot: "docs",
-  out: "sql",
+  out: "reference",
   cleanOutputDir: true,
   sidebar: {
     fullNames: false,
