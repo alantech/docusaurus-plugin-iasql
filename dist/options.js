@@ -8,9 +8,9 @@ const DEFAULT_PLUGIN_OPTIONS = {
     cleanOutputDir: true,
     sidebar: {
         fullNames: false,
-        categoryLabel: "SQL reference",
+        categoryLabel: "Reference",
         indexLabel: undefined,
-        readmeLabel: "Introduction",
+        readmeLabel: "SQL",
         position: null,
         autoConfiguration: true,
         usedSidebar: "docs",
