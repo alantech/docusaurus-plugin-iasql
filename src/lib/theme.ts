@@ -374,6 +374,6 @@ export class MarkdownTheme extends Theme {
   }
 
   get globalsFile() {
-    return "sql_reference.md";
+    return "sql.md";
   }
 }

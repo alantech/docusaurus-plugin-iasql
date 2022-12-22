@@ -173,7 +173,7 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
         });
     }
     get globalsFile() {
-        return "sql_reference.md";
+        return "sql.md";
     }
 }
 __decorate([

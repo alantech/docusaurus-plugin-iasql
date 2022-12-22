@@ -274,7 +274,7 @@ class MarkdownTheme extends typedoc_1.Theme {
             page.model instanceof typedoc_1.DeclarationReflection ? page.model : undefined;
     }
     get globalsFile() {
-        return "sql_reference.md";
+        return "sql.md";
     }
 }
 exports.MarkdownTheme = MarkdownTheme;

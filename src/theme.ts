@@ -206,7 +206,7 @@ export class DocusaurusTheme extends MarkdownTheme {
   }
 
   get globalsFile() {
-    return "sql_reference.md";
+    return "sql.md";
   }
 }
 

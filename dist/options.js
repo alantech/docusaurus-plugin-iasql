@@ -19,7 +19,7 @@ const DEFAULT_PLUGIN_OPTIONS = {
     hideBreadcrumbs: true,
     hidePageTitle: true,
     hideMembersSymbol: false,
-    entryDocument: "sql_reference.md",
+    entryDocument: "sql.md",
     plugin: ["none"],
     watch: false,
     includeExtension: true,
