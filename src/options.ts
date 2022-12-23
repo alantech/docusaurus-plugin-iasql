@@ -1,15 +1,15 @@
 import { PluginOptions } from "./types";
 
 const DEFAULT_PLUGIN_OPTIONS: PluginOptions = {
-  id: "default",
+  id: "reference",
   docsRoot: "docs",
-  out: "sql",
+  out: "reference",
   cleanOutputDir: true,
   sidebar: {
     fullNames: false,
-    categoryLabel: "SQL reference",
+    categoryLabel: "Reference",
     indexLabel: undefined,
-    readmeLabel: "Introduction",
+    readmeLabel: "SQL",
     position: null,
     autoConfiguration: true,
     usedSidebar: "docs",
@@ -18,7 +18,7 @@ const DEFAULT_PLUGIN_OPTIONS: PluginOptions = {
   hideBreadcrumbs: true,
   hidePageTitle: true,
   hideMembersSymbol: false,
-  entryDocument: "sql_reference.md",
+  entryDocument: "sql.md",
   plugin: ["none"],
   watch: false,
   includeExtension: true,
