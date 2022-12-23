@@ -1,7 +1,7 @@
 import { PluginOptions } from "./types";
 
 const DEFAULT_PLUGIN_OPTIONS: PluginOptions = {
-  id: "default",
+  id: "reference",
   docsRoot: "docs",
   out: "reference",
   cleanOutputDir: true,
