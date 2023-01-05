@@ -13,7 +13,7 @@ export declare class DocusaurusTheme extends MarkdownTheme {
     onRendererEnd(renderer: RendererEvent): void;
     getYamlItems(page: PageEvent<DeclarationReflection>): FrontMatter;
     getSidebarLabel(page: PageEvent<DeclarationReflection>): string | undefined;
-    getSidebarPosition(page: PageEvent<DeclarationReflection>): "0.5" | "0" | null;
+    getSidebarPosition(page: PageEvent<DeclarationReflection>): "0" | "0.5" | null;
     getId(page: PageEvent): string;
     getTitle(page: PageEvent): any;
     get mappings(): {

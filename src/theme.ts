@@ -102,8 +102,11 @@ export class DocusaurusTheme extends MarkdownTheme {
   getYamlItems(page: PageEvent<DeclarationReflection>): FrontMatter {
     const pageId = this.getId(page);
     const pageTitle = this.getTitle(page);
-    const sidebarLabel = this.getSidebarLabel(page);
-    const sidebarPosition = this.getSidebarPosition(page);
+    //const sidebarLabel = this.getSidebarLabel(page);
+    //const sidebarPosition = this.getSidebarPosition(page);
+    const sidebarLabel = "SQL";
+    const sidebarPosition = "0";
+
     let items: FrontMatter = {
       id: pageId,
       title: pageTitle,
@@ -195,7 +198,8 @@ export class DocusaurusTheme extends MarkdownTheme {
     let result = getPageTitle(page);
 
     // rename class to table
-    result = result.replace("Class", "Table");
+    if (page.url.includes("rpcs")) result = result.replace("Class", "Method");
+    else result = result.replace("Class", "Table");
     return result;
   }
 

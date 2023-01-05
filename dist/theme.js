@@ -82,8 +82,8 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
     getYamlItems(page) {
         const pageId = this.getId(page);
         const pageTitle = this.getTitle(page);
-        const sidebarLabel = this.getSidebarLabel(page);
-        const sidebarPosition = this.getSidebarPosition(page);
+        const sidebarLabel = "SQL";
+        const sidebarPosition = "0";
         let items = {
             id: pageId,
             title: pageTitle,
@@ -164,7 +164,10 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
             return readmeTitle;
         }
         let result = (0, front_matter_1.getPageTitle)(page);
-        result = result.replace("Class", "Table");
+        if (page.url.includes("rpcs"))
+            result = result.replace("Class", "Method");
+        else
+            result = result.replace("Class", "Table");
         return result;
     }
     get mappings() {
