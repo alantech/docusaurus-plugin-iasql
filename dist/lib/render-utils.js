@@ -38,6 +38,7 @@ const escape_1 = __importDefault(require("./resources/helpers/escape"));
 const hierarchy_1 = __importDefault(require("./resources/helpers/hierarchy"));
 const if_is_reference_1 = __importDefault(require("./resources/helpers/if-is-reference"));
 const if_is_equal_1 = __importDefault(require("./resources/helpers/if-is-equal"));
+const if_is_table_1 = __importDefault(require("./resources/helpers/if-is-table"));
 const if_named_anchors_1 = __importDefault(require("./resources/helpers/if-named-anchors"));
 const if_show_breadcrumbs_1 = __importDefault(require("./resources/helpers/if-show-breadcrumbs"));
 const if_show_named_anchors_1 = __importDefault(require("./resources/helpers/if-show-named-anchors"));
@@ -82,6 +83,7 @@ function registerHelpers(theme) {
     (0, hierarchy_1.default)();
     (0, if_is_reference_1.default)();
     (0, if_is_equal_1.default)();
+    (0, if_is_table_1.default)();
     (0, if_named_anchors_1.default)(theme);
     (0, if_show_breadcrumbs_1.default)(theme);
     (0, if_show_named_anchors_1.default)(theme);

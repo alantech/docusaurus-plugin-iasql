@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPluginOptions = void 0;
 const DEFAULT_PLUGIN_OPTIONS = {
-    id: "default",
+    id: "reference",
     docsRoot: "docs",
     out: "reference",
     cleanOutputDir: true,
