@@ -30,8 +30,16 @@ export default function (theme: MarkdownTheme) {
           md.push(`## Table of contents\n\n`);
         }
 
+        let sortedChildren = this.children ?? [];
+        sortedChildren.sort(function (x, y) {
+          return x.name == "iasql_functions"
+            ? -1
+            : y.name == "iasql_functions"
+            ? 1
+            : 0;
+        });
         // traverse all children with parent id = 0
-        for (const child of this.children ?? []) {
+        for (const child of sortedChildren) {
           if (
             child.parent?.id == 0 &&
             child.kind == 2 &&
