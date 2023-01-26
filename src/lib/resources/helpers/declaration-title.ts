@@ -28,7 +28,6 @@ export default function (theme: MarkdownTheme) {
         if (reflectionType && reflectionType.declaration?.children) {
           return ": `Object`";
         }
-
         return (
           (reflection.parent?.kindOf(ReflectionKind.Enum) ? " = " : ": ") +
           Handlebars.helpers.type.call(

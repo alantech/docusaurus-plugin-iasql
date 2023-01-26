@@ -104,7 +104,7 @@ export class DocusaurusTheme extends MarkdownTheme {
     const pageTitle = this.getTitle(page);
     //const sidebarLabel = this.getSidebarLabel(page);
     //const sidebarPosition = this.getSidebarPosition(page);
-    const sidebarLabel = "SQL";
+    const sidebarLabel = "Reference";
     const sidebarPosition = "0";
 
     let items: FrontMatter = {
@@ -196,11 +196,9 @@ export class DocusaurusTheme extends MarkdownTheme {
       return readmeTitle;
     }
     let result = getPageTitle(page);
-
-    // rename class to table
-    if (page.url.includes("rpcs")) result = result.replace("Class", "Method");
-    else result = result.replace("Class", "Table");
-    return result;
+    const items = result.split(":");
+    if (items.length == 2) return items[1].trim();
+    else return result;
   }
 
   get mappings() {
@@ -210,7 +208,7 @@ export class DocusaurusTheme extends MarkdownTheme {
   }
 
   get globalsFile() {
-    return "sql.md";
+    return "index.md";
   }
 }
 

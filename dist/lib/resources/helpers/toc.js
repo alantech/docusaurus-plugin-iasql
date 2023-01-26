@@ -35,7 +35,15 @@ function default_1(theme) {
             if (!hideInPageTOC) {
                 md.push(`## Table of contents\n\n`);
             }
-            for (const child of (_b = this.children) !== null && _b !== void 0 ? _b : []) {
+            let sortedChildren = (_b = this.children) !== null && _b !== void 0 ? _b : [];
+            sortedChildren.sort(function (x, y) {
+                return x.name == "iasql_functions"
+                    ? -1
+                    : y.name == "iasql_functions"
+                        ? 1
+                        : 0;
+            });
+            for (const child of sortedChildren) {
                 if (((_c = child.parent) === null || _c === void 0 ? void 0 : _c.id) == 0 &&
                     child.kind == 2 &&
                     !child.name.includes("/") &&
@@ -44,15 +52,35 @@ function default_1(theme) {
                     !child.name.includes("interfaces") &&
                     !child.name.includes("subscribers")) {
                     md.push(`### ${child.name}\n\n`);
-                    for (const child1 of (_d = this.children) !== null && _d !== void 0 ? _d : []) {
-                        if (child1.name.includes(child.name) &&
-                            (child1.name.includes("entity") || child1.name.includes("rpc"))) {
-                            for (const child2 of (_e = child1.children) !== null && _e !== void 0 ? _e : []) {
-                                if (!((_f = child2.url) === null || _f === void 0 ? void 0 : _f.includes("modules"))) {
-                                    md.push(`[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
-                                }
-                            }
+                    const tables = [];
+                    const methods = [];
+                    const enums = [];
+                    const filtered = sortedChildren === null || sortedChildren === void 0 ? void 0 : sortedChildren.filter((x) => x.name.includes(child.name) &&
+                        (x.name.includes("entity") || x.name.includes("rpc")));
+                    for (const filt of filtered) {
+                        for (const item of (_d = filt.children) !== null && _d !== void 0 ? _d : []) {
+                            if (item.kindString == "Class" && !((_e = item.url) === null || _e === void 0 ? void 0 : _e.includes("rpc")))
+                                tables.push(item);
+                            if (item.kindString == "Class" && ((_f = item.url) === null || _f === void 0 ? void 0 : _f.includes("rpc")))
+                                methods.push(item);
+                            if (item.kindString == "Enumeration")
+                                enums.push(item);
                         }
+                    }
+                    if (tables.length > 0)
+                        md.push("&nbsp;&nbsp;**Tables**\n");
+                    for (const child2 of tables) {
+                        md.push(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
+                    }
+                    if (methods.length > 0)
+                        md.push("&nbsp;&nbsp;**Functions**\n");
+                    for (const child2 of methods) {
+                        md.push(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
+                    }
+                    if (enums.length > 0)
+                        md.push("&nbsp;&nbsp;**Enums**\n");
+                    for (const child2 of enums) {
+                        md.push(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
                     }
                 }
             }

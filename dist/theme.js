@@ -82,7 +82,7 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
     getYamlItems(page) {
         const pageId = this.getId(page);
         const pageTitle = this.getTitle(page);
-        const sidebarLabel = "SQL";
+        const sidebarLabel = "Reference";
         const sidebarPosition = "0";
         let items = {
             id: pageId,
@@ -164,11 +164,11 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
             return readmeTitle;
         }
         let result = (0, front_matter_1.getPageTitle)(page);
-        if (page.url.includes("rpcs"))
-            result = result.replace("Class", "Method");
+        const items = result.split(":");
+        if (items.length == 2)
+            return items[1].trim();
         else
-            result = result.replace("Class", "Table");
-        return result;
+            return result;
     }
     get mappings() {
         return super.mappings.map((mapping) => {
@@ -176,7 +176,7 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
         });
     }
     get globalsFile() {
-        return "sql.md";
+        return "index.md";
     }
 }
 __decorate([
