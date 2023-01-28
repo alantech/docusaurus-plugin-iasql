@@ -114,7 +114,7 @@ function getLiteralType(model: LiteralType) {
   if (typeof model.value === "bigint") {
     return `${model.value}n`;
   }
-  return `${JSON.stringify(model.value).replace(/"/g, "")}`;
+  return `\`${JSON.stringify(model.value).replace(/"/g, "")}\``;
 }
 
 export function getReflectionType(

@@ -101,9 +101,10 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
                 items = { ...items, sidebar_position: parseFloat(sidebarPosition) };
             }
         }
-        if (page.url === page.project.url && this.entryPoints.length > 1) {
-            items = { ...items, hide_table_of_contents: true };
-        }
+        items = {
+            ...items,
+            hide_table_of_contents: true,
+        };
         items = { ...items, custom_edit_url: null };
         if (this.frontmatter) {
             items = { ...items, ...this.frontmatter };
