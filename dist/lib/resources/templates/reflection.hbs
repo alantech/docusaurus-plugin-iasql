@@ -1,9 +1,9 @@
 {{> header}}
 {{> title}}
 {{#with model}}
+{{renderType}}
 {{#if hasComment}}
 {{> comment}}
-
 {{/if}}
 
 {{/with}}
@@ -13,6 +13,10 @@
 {{#ifIsTable this}}
 ## Columns
 {{/ifIsTable}}
+{{#ifIsEnum this}}
+## Values
+{{/ifIsEnum}}
+
 
 {{> main}}
 

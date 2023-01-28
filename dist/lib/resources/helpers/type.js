@@ -80,9 +80,9 @@ function default_1() {
 exports.default = default_1;
 function getLiteralType(model) {
     if (typeof model.value === "bigint") {
-        return `\`${model.value}n\``;
+        return `${model.value}n`;
     }
-    return `\`\`${JSON.stringify(model.value)}\`\``;
+    return `\`${JSON.stringify(model.value).replace(/"/g, "")}\``;
 }
 function getReflectionType(model, collapse) {
     const root = model instanceof typedoc_1.ReflectionType ? model.declaration : model;

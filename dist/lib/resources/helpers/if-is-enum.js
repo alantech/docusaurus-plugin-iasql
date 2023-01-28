@@ -25,11 +25,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Handlebars = __importStar(require("handlebars"));
 function default_1() {
-    Handlebars.registerHelper("ifIsTable", function (arg1, options) {
-        const str = arg1.name.toLowerCase();
-        return !str.includes("rpc") &&
-            !str.startsWith("iasql") &&
-            arg1.kindString == "Class"
+    Handlebars.registerHelper("ifIsEnum", function (arg1, options) {
+        return arg1.kindString == "Enumeration"
             ? options.fn(this)
             : options.inverse(this);
     });

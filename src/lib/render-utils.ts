@@ -10,6 +10,8 @@ import hierarchyHelper from "./resources/helpers/hierarchy";
 import ifIsReference from "./resources/helpers/if-is-reference";
 import ifIsEqual from "./resources/helpers/if-is-equal";
 import ifIsTable from "./resources/helpers/if-is-table";
+import ifIsEnum from "./resources/helpers/if-is-enum";
+import renderTypeHelper from "./resources/helpers/render-type";
 import ifNamedAnchors from "./resources/helpers/if-named-anchors";
 import ifShowBreadcrumbsHelper from "./resources/helpers/if-show-breadcrumbs";
 import ifShowNamedAnchorsHelper from "./resources/helpers/if-show-named-anchors";
@@ -67,6 +69,8 @@ export function registerHelpers(theme: MarkdownTheme) {
   ifIsReference();
   ifIsEqual();
   ifIsTable();
+  ifIsEnum();
+  renderTypeHelper(theme);
   ifNamedAnchors(theme);
   ifShowBreadcrumbsHelper(theme);
   ifShowNamedAnchorsHelper(theme);
