@@ -37,9 +37,6 @@ export default function (theme: MarkdownTheme) {
         }
       }
 
-      if (tables.length > 0 || methods.length > 0 || enums.length > 0)
-        md.push("## Components\n\n");
-
       // display them
       if (tables.length > 0) md.push(`### Tables\n\n`);
       for (const child2 of tables) {
