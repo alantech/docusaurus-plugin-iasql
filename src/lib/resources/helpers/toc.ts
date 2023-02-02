@@ -40,7 +40,7 @@ export default function (theme: MarkdownTheme) {
             !child.name.includes("subscribers")
           ) {
             // it is a module, print it
-            md.push(`### ${child.name}\n\n`);
+            md.push(`### [${child.name}](${child.url})\n\n`);
 
             // now need to find the depending modules
             const tables: DeclarationReflection[] = [];

@@ -19,7 +19,10 @@ export default function (theme: MarkdownTheme) {
   Handlebars.registerHelper(
     "declarationTitle",
     function (this: ParameterReflection | DeclarationReflection) {
-      const md = theme.hideMembersSymbol ? [] : [memberSymbol(this)];
+      let md;
+      if (this.parent?.kindString != "Module")
+        md = theme.hideMembersSymbol ? [] : [memberSymbol(this)];
+      else md = [];
 
       function getType(
         reflection: ParameterReflection | DeclarationReflection
@@ -37,32 +40,36 @@ export default function (theme: MarkdownTheme) {
         );
       }
 
-      if (this.flags && this.flags.length > 0 && !this.flags.isRest) {
-        md.push(" " + this.flags.map((flag) => `\`${flag}\``).join(" "));
-      }
-      md.push(
-        `${this.flags.isRest ? "... " : ""} **${escapeChars(
-          camelToSnakeCase(this.name)
-        )}**`
-      );
-      if (this instanceof DeclarationReflection && this.typeParameters) {
+      if (this.parent?.kindString != "Module") {
+        if (this.flags && this.flags.length > 0 && !this.flags.isRest) {
+          md.push(" " + this.flags.map((flag) => `\`${flag}\``).join(" "));
+        }
         md.push(
-          `<${this.typeParameters
-            .map(
-              (typeParameter) => `\`${camelToSnakeCase(typeParameter.name)}\``
-            )
-            .join(", ")}\\>`
+          `${this.flags.isRest ? "... " : ""} **${escapeChars(
+            camelToSnakeCase(this.name)
+          )}**`
         );
-      }
+        if (this instanceof DeclarationReflection && this.typeParameters) {
+          md.push(
+            `<${this.typeParameters
+              .map(
+                (typeParameter) => `\`${camelToSnakeCase(typeParameter.name)}\``
+              )
+              .join(", ")}\\>`
+          );
+        }
 
-      md.push(getType(this));
+        md.push(getType(this));
 
-      if (
-        !(this.type instanceof LiteralType) &&
-        this.defaultValue &&
-        this.defaultValue !== "..."
-      ) {
-        md.push(` = \`${stripLineBreaks(stripComments(this.defaultValue))}\``);
+        if (
+          !(this.type instanceof LiteralType) &&
+          this.defaultValue &&
+          this.defaultValue !== "..."
+        ) {
+          md.push(
+            ` = \`${stripLineBreaks(stripComments(this.defaultValue))}\``
+          );
+        }
       }
       return md.join("");
     }

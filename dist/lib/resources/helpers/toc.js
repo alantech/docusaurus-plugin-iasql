@@ -43,6 +43,7 @@ function default_1(theme) {
                         ? 1
                         : 0;
             });
+            // traverse all children with parent id = 0
             for (const child of sortedChildren) {
                 if (((_c = child.parent) === null || _c === void 0 ? void 0 : _c.id) == 0 &&
                     child.kind == 2 &&
@@ -51,7 +52,9 @@ function default_1(theme) {
                     !child.name.includes("index") &&
                     !child.name.includes("interfaces") &&
                     !child.name.includes("subscribers")) {
-                    md.push(`### ${child.name}\n\n`);
+                    // it is a module, print it
+                    md.push(`### [${child.name}](${child.url})\n\n`);
+                    // now need to find the depending modules
                     const tables = [];
                     const methods = [];
                     const enums = [];
@@ -67,6 +70,7 @@ function default_1(theme) {
                                 enums.push(item);
                         }
                     }
+                    // display them
                     if (tables.length > 0)
                         md.push("&nbsp;&nbsp;**Tables**\n");
                     for (const child2 of tables) {

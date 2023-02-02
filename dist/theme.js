@@ -56,6 +56,7 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
         const re = new RegExp(this.includeExtension === "true" ? "" : ".md", "g");
         const relativeUrl = super.getRelativeUrl(url).replace(re, "");
         if (path.basename(relativeUrl).startsWith("index")) {
+            // always remove the extension for the index or else it creates weird paths like `../.md`
             return relativeUrl.replace("index", "").replace(".md", "");
         }
         return relativeUrl;
@@ -82,6 +83,8 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
     getYamlItems(page) {
         const pageId = this.getId(page);
         const pageTitle = this.getTitle(page);
+        //const sidebarLabel = this.getSidebarLabel(page);
+        //const sidebarPosition = this.getSidebarPosition(page);
         const sidebarLabel = "Reference";
         const sidebarPosition = "0";
         let items = {

@@ -2,6 +2,11 @@
 {{> title}}
 {{#with model}}
 {{renderType}}
+
+{{#ifIsModule this}}
+{{renderComponents}}
+{{/ifIsModule}}
+
 {{#if hasComment}}
 {{> comment}}
 {{/if}}
@@ -16,7 +21,6 @@
 {{#ifIsEnum this}}
 ## Values
 {{/ifIsEnum}}
-
 
 {{> main}}
 
