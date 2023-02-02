@@ -24,30 +24,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Handlebars = __importStar(require("handlebars"));
-function default_1(theme) {
-    Handlebars.registerHelper("renderType", function () {
-        var _a;
-        // get type from url and class
-        let type, color;
-        if (this.kindString == "Class") {
-            if ((_a = this.url) === null || _a === void 0 ? void 0 : _a.toLowerCase().includes("rpcs")) {
-                type = "Function";
-                color = "95CE3D";
-            }
-            else {
-                type = "Table";
-                color = "3D95CE";
-            }
-        }
-        else if (this.kindString == "Enumeration") {
-            type = "Enum";
-            color = "CD3C94";
-        }
-        else if (this.kindString == "Module") {
-            type = "module";
-            color = "CE3D3D";
-        }
-        return `![${type}](https://img.shields.io/static/v1?label=&message=${type}&color=${color}&style=for-the-badge)`;
+function default_1() {
+    Handlebars.registerHelper("ifIsModule", function (arg1, options) {
+        return arg1.kindString == "Module"
+            ? options.fn(this)
+            : options.inverse(this);
     });
 }
 exports.default = default_1;

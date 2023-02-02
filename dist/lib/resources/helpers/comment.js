@@ -99,6 +99,12 @@ function parseMarkdown(text, theme) {
     }
     return text;
 }
+/**
+ * Load the given file and return its contents.
+ *
+ * @param file  The path of the file to read.
+ * @returns The files contents.
+ */
 function readFile(file) {
     const buffer = fs.readFileSync(file);
     switch (buffer[0]) {

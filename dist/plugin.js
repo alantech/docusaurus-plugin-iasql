@@ -29,6 +29,7 @@ const typedoc_plugin_markdown_1 = require("typedoc-plugin-markdown");
 const options_1 = require("./options");
 const render_1 = require("./render");
 const theme_1 = require("./theme");
+// store list of plugin ids when running multiple instances
 const apps = [];
 function pluginDocusaurus(context, opts) {
     return {
@@ -47,8 +48,8 @@ function pluginDocusaurus(context, opts) {
                 (0, typedoc_plugin_markdown_1.load)(app);
                 (0, render_1.bootstrap)(app, options);
                 const project = app.convert();
+                // if project is undefined typedoc has a problem - error logging will be supplied by typedoc.
                 if (!project) {
-                    console.log("no project");
                     return;
                 }
                 if (options.watch) {

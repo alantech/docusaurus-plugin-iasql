@@ -42,7 +42,17 @@ export declare class MarkdownTheme extends Theme {
         directory: string;
         template: (pageEvent: PageEvent<ContainerReflection>) => string;
     }[];
+    /**
+     * Triggered before the renderer starts rendering a project.
+     *
+     * @param event  An event object describing the current render operation.
+     */
     protected onBeginRenderer(event: RendererEvent): void;
+    /**
+     * Triggered before a document will be rendered.
+     *
+     * @param page  An event object describing the current render operation.
+     */
     protected onBeginPage(page: PageEvent): void;
     get globalsFile(): string;
 }

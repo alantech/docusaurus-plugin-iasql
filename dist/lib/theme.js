@@ -34,6 +34,7 @@ class MarkdownTheme extends typedoc_1.Theme {
     constructor(renderer) {
         super(renderer);
         this.anchorMap = {};
+        // prettier-ignore
         this.allReflectionsHaveOwnDocument = this.getOption('allReflectionsHaveOwnDocument');
         this.entryDocument = this.getOption("entryDocument");
         this.entryPoints = this.getOption("entryPoints");
@@ -265,9 +266,19 @@ class MarkdownTheme extends typedoc_1.Theme {
                 : []),
         ];
     }
+    /**
+     * Triggered before the renderer starts rendering a project.
+     *
+     * @param event  An event object describing the current render operation.
+     */
     onBeginRenderer(event) {
         this.project = event.project;
     }
+    /**
+     * Triggered before a document will be rendered.
+     *
+     * @param page  An event object describing the current render operation.
+     */
     onBeginPage(page) {
         this.location = page.url;
         this.reflection =

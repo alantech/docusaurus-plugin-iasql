@@ -31,7 +31,6 @@ export default function pluginDocusaurus(
         }
 
         const app = new Application();
-
         app.renderer.defineTheme("docusaurus", DocusaurusTheme);
 
         load(app);
@@ -42,7 +41,6 @@ export default function pluginDocusaurus(
 
         // if project is undefined typedoc has a problem - error logging will be supplied by typedoc.
         if (!project) {
-          console.log("no project");
           return;
         }
 

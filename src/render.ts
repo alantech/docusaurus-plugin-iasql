@@ -33,8 +33,13 @@ export async function render(
     project
   );
   output.urls = this.theme!.getUrls(project);
-  output.urls = output.urls?.filter((url) => !url.url.startsWith("modules/"));
-
+  output.urls = output.urls?.filter(
+    (url) =>
+      !url.url.startsWith("modules/") ||
+      (!url.url.includes("entity") &&
+        !url.url.includes("rpcs") &&
+        !url.url.includes("enum"))
+  );
   this.trigger(output);
   if (!output.isDefaultPrevented) {
     output?.urls?.forEach((mapping: UrlMapping) => {

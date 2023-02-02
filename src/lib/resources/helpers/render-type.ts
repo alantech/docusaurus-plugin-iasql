@@ -19,6 +19,9 @@ export default function (theme: MarkdownTheme) {
       } else if (this.kindString == "Enumeration") {
         type = "Enum";
         color = "CD3C94";
+      } else if (this.kindString == "Module") {
+        type = "module";
+        color = "CE3D3D";
       }
 
       return `![${type}](https://img.shields.io/static/v1?label=&message=${type}&color=${color}&style=for-the-badge)`;
