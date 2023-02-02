@@ -53,8 +53,6 @@ function default_1(theme) {
                     enums.push(item);
             }
         }
-        if (tables.length > 0 || methods.length > 0 || enums.length > 0)
-            md.push("## Components\n\n");
         // display them
         if (tables.length > 0)
             md.push(`### Tables\n\n`);
