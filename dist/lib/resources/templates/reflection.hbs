@@ -1,18 +1,26 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 {{> header}}
 {{> title}}
 {{#with model}}
 
 {{#ifIsModule this}}
-{{renderComponents}}
-{{/ifIsModule}}
+<Tabs>
+  <TabItem value="Components" label="Components" default>
 
+{{renderComponents}}
+</TabItem>
+  <TabItem value="Code examples" label="Code examples">
+{{> comment}}
+{{> main}}
+
+</TabItem>
+</Tabs>
+{{else}}
 {{#if hasComment}}
 {{> comment}}
 {{/if}}
-
-{{/with}}
-
-{{#with model}}
 
 {{#ifIsTable this}}
 ## Columns
@@ -22,5 +30,6 @@
 {{/ifIsEnum}}
 
 {{> main}}
+{{/ifIsModule}}
 
 {{/with}}
