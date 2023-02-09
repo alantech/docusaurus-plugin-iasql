@@ -2,15 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPluginOptions = void 0;
 const DEFAULT_PLUGIN_OPTIONS = {
-    id: "reference",
+    id: "aws",
     docsRoot: "docs",
-    out: "reference",
+    out: "aws",
     cleanOutputDir: true,
     sidebar: {
         fullNames: false,
-        categoryLabel: "Reference",
+        categoryLabel: "Modules",
         indexLabel: undefined,
-        readmeLabel: "Reference",
+        readmeLabel: "Modules",
         position: null,
         autoConfiguration: true,
         usedSidebar: "docs",

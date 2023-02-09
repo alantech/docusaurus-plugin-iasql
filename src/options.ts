@@ -1,15 +1,15 @@
 import { PluginOptions } from "./types";
 
 const DEFAULT_PLUGIN_OPTIONS: PluginOptions = {
-  id: "reference",
+  id: "aws",
   docsRoot: "docs",
-  out: "reference",
+  out: "aws",
   cleanOutputDir: true,
   sidebar: {
     fullNames: false,
-    categoryLabel: "Reference",
+    categoryLabel: "Modules",
     indexLabel: undefined,
-    readmeLabel: "Reference",
+    readmeLabel: "Modules",
     position: null,
     autoConfiguration: true,
     usedSidebar: "docs",
