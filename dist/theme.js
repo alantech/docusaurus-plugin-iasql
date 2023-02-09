@@ -85,7 +85,7 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
         const pageTitle = this.getTitle(page);
         //const sidebarLabel = this.getSidebarLabel(page);
         //const sidebarPosition = this.getSidebarPosition(page);
-        const sidebarLabel = "Reference";
+        const sidebarLabel = "Modules";
         const sidebarPosition = "0";
         let items = {
             id: pageId,
