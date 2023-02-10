@@ -2,7 +2,6 @@ export interface PluginOptions {
     id: string;
     docsRoot: string;
     out: string;
-    sidebar: SidebarOptions;
     readmeTitle?: string;
     globalsTitle?: string;
     plugin: string[];
@@ -22,15 +21,6 @@ export interface PluginOptions {
     frontmatter: FrontMatter;
 }
 export type FrontMatter = Record<string, string | boolean | number | null> | undefined;
-export interface SidebarOptions {
-    fullNames?: boolean;
-    categoryLabel: string;
-    indexLabel?: string;
-    readmeLabel?: string;
-    position: number | null;
-    autoConfiguration: boolean;
-    usedSidebar: string;
-}
 export interface SidebarCategory {
     type: string;
     label: string;

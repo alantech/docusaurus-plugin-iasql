@@ -40,10 +40,7 @@ async function render(project, outputDirectory) {
     }
     const output = new typedoc_1.RendererEvent(typedoc_1.RendererEvent.BEGIN, outputDirectory, project);
     output.urls = this.theme.getUrls(project);
-    output.urls = (_a = output.urls) === null || _a === void 0 ? void 0 : _a.filter((url) => !url.url.startsWith("modules/") ||
-        (!url.url.includes("entity") &&
-            !url.url.includes("rpcs") &&
-            !url.url.includes("enum")));
+    output.urls = (_a = output.urls) === null || _a === void 0 ? void 0 : _a.filter((url) => !url.url.includes("/index.md"));
     this.trigger(output);
     if (!output.isDefaultPrevented) {
         (_b = output === null || output === void 0 ? void 0 : output.urls) === null || _b === void 0 ? void 0 : _b.forEach((mapping) => {
