@@ -40,28 +40,36 @@ export default function (theme: MarkdownTheme) {
       // display them
       if (tables.length > 0) md.push(`### Tables\n\n`);
       for (const child2 of tables) {
+        let url = child2.url?.replace(".md", "");
+        url = "../../" + url;
         md.push(
           `\u00a0\u00a0\u00a0\u00a0[${camelToSnakeCase(
             child2.name
-          )}](../../${child2.url?.replace(".md", "")})\n\n`
+          )}](${url})\n\n`
         );
       }
       if (methods.length > 0) md.push(`### Functions\n`);
 
       for (const child2 of methods) {
+        let url = child2.url?.replace(".md", "");
+        url = "../../" + url;
+
         md.push(
           `\u00a0\u00a0\u00a0\u00a0[${camelToSnakeCase(
             child2.name
-          )}](../../${child2.url?.replace(".md", "")})\n\n`
+          )}](${url})\n\n`
         );
       }
       if (enums.length > 0) md.push(`### Enums\n`);
 
       for (const child2 of enums) {
+        let url = child2.url?.replace(".md", "");
+        url = "../../" + url;
+
         md.push(
           `\u00a0\u00a0\u00a0\u00a0[${camelToSnakeCase(
             child2.name
-          )}](../../${child2.url?.replace(".md", "")})\n\n`
+          )}](${url})\n\n`
         );
       }
 
