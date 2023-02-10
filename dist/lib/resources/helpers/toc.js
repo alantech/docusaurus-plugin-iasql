@@ -25,67 +25,81 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Handlebars = __importStar(require("handlebars"));
 const utils_1 = require("../../utils");
+function displayChild(child, children) {
+    var _a, _b, _c;
+    const md = [];
+    // it is a module, print it
+    md.push(`### [${child.name}](${child.url})\n\n`);
+    // now need to find the depending modules
+    const tables = [];
+    const methods = [];
+    const enums = [];
+    const filtered = children === null || children === void 0 ? void 0 : children.filter((x) => x.name.includes(child.name) &&
+        (x.name.includes("entity") || x.name.includes("rpc")));
+    for (const filt of filtered) {
+        for (const item of (_a = filt.children) !== null && _a !== void 0 ? _a : []) {
+            if (item.kindString == "Class" && !((_b = item.url) === null || _b === void 0 ? void 0 : _b.includes("rpc")))
+                tables.push(item);
+            if (item.kindString == "Class" && ((_c = item.url) === null || _c === void 0 ? void 0 : _c.includes("rpc")))
+                methods.push(item);
+            if (item.kindString == "Enumeration")
+                enums.push(item);
+        }
+    }
+    // display them
+    if (tables.length > 0)
+        md.push("&nbsp;&nbsp;**Tables**\n");
+    for (const child2 of tables) {
+        md.push(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
+    }
+    if (methods.length > 0)
+        md.push("&nbsp;&nbsp;**Functions**\n");
+    for (const child2 of methods) {
+        md.push(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
+    }
+    if (enums.length > 0)
+        md.push("&nbsp;&nbsp;**Enums**\n");
+    for (const child2 of enums) {
+        md.push(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
+    }
+    return md;
+}
 function default_1(theme) {
     Handlebars.registerHelper("toc", function () {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c;
         const md = [];
         const { hideInPageTOC } = theme;
         const isVisible = (_a = this.groups) === null || _a === void 0 ? void 0 : _a.some((group) => group.allChildrenHaveOwnDocument());
         if ((!hideInPageTOC && this.groups) || (isVisible && this.groups)) {
             if (!hideInPageTOC) {
-                md.push(`## Table of contents\n\n`);
+                md.push(`# Table of contents\n\n`);
             }
-            let sortedChildren = (_b = this.children) !== null && _b !== void 0 ? _b : [];
-            sortedChildren.sort(function (x, y) {
-                return x.name == "iasql_functions"
-                    ? -1
-                    : y.name == "iasql_functions"
-                        ? 1
-                        : 0;
-            });
-            // traverse all children with parent id = 0
-            for (const child of sortedChildren) {
-                if (((_c = child.parent) === null || _c === void 0 ? void 0 : _c.id) == 0 &&
+            // builtin
+            const builtin = (_b = this.children) === null || _b === void 0 ? void 0 : _b.filter((child) => {
+                var _a, _b;
+                return ((_a = child.parent) === null || _a === void 0 ? void 0 : _a.id) == 0 &&
                     child.kind == 2 &&
-                    !child.name.includes("/") &&
-                    !child.name.includes("ecs_simplified") &&
-                    !child.name.includes("index") &&
-                    !child.name.includes("interfaces") &&
-                    !child.name.includes("subscribers")) {
-                    // it is a module, print it
-                    md.push(`### [${child.name}](${child.url})\n\n`);
-                    // now need to find the depending modules
-                    const tables = [];
-                    const methods = [];
-                    const enums = [];
-                    const filtered = sortedChildren === null || sortedChildren === void 0 ? void 0 : sortedChildren.filter((x) => x.name.includes(child.name) &&
-                        (x.name.includes("entity") || x.name.includes("rpc")));
-                    for (const filt of filtered) {
-                        for (const item of (_d = filt.children) !== null && _d !== void 0 ? _d : []) {
-                            if (item.kindString == "Class" && !((_e = item.url) === null || _e === void 0 ? void 0 : _e.includes("rpc")))
-                                tables.push(item);
-                            if (item.kindString == "Class" && ((_f = item.url) === null || _f === void 0 ? void 0 : _f.includes("rpc")))
-                                methods.push(item);
-                            if (item.kindString == "Enumeration")
-                                enums.push(item);
-                        }
-                    }
-                    // display them
-                    if (tables.length > 0)
-                        md.push("&nbsp;&nbsp;**Tables**\n");
-                    for (const child2 of tables) {
-                        md.push(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
-                    }
-                    if (methods.length > 0)
-                        md.push("&nbsp;&nbsp;**Functions**\n");
-                    for (const child2 of methods) {
-                        md.push(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
-                    }
-                    if (enums.length > 0)
-                        md.push("&nbsp;&nbsp;**Enums**\n");
-                    for (const child2 of enums) {
-                        md.push(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${(0, utils_1.camelToSnakeCase)(child2.name)}](${child2.url})\n\n`);
-                    }
+                    ((_b = child.url) === null || _b === void 0 ? void 0 : _b.startsWith("builtin"));
+            });
+            md.push("## Builtin");
+            for (const child of builtin !== null && builtin !== void 0 ? builtin : []) {
+                if (child.name == "iasql_functions") {
+                    const content = displayChild(child, builtin !== null && builtin !== void 0 ? builtin : []);
+                    md.push(...content);
+                }
+            }
+            // aws
+            const aws = (_c = this.children) === null || _c === void 0 ? void 0 : _c.filter((child) => {
+                var _a, _b;
+                return ((_a = child.parent) === null || _a === void 0 ? void 0 : _a.id) == 0 &&
+                    child.kind == 2 &&
+                    ((_b = child.url) === null || _b === void 0 ? void 0 : _b.startsWith("aws"));
+            });
+            md.push("## AWS");
+            for (const child of aws !== null && aws !== void 0 ? aws : []) {
+                if (!child.name.includes("/")) {
+                    const content = displayChild(child, aws !== null && aws !== void 0 ? aws : []);
+                    md.push(...content);
                 }
             }
         }

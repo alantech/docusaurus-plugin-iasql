@@ -1,19 +1,10 @@
 import { PluginOptions } from "./types";
 
 const DEFAULT_PLUGIN_OPTIONS: PluginOptions = {
-  id: "aws",
+  id: "modules",
   docsRoot: "docs",
-  out: "aws",
+  out: "modules",
   cleanOutputDir: true,
-  sidebar: {
-    fullNames: false,
-    categoryLabel: "Modules",
-    indexLabel: undefined,
-    readmeLabel: "Modules",
-    position: null,
-    autoConfiguration: true,
-    usedSidebar: "docs",
-  },
   hideInPageTOC: true,
   hideBreadcrumbs: true,
   hidePageTitle: true,
@@ -33,10 +24,6 @@ export const getPluginOptions = (
   const options = {
     ...DEFAULT_PLUGIN_OPTIONS,
     ...opts,
-    sidebar: {
-      ...DEFAULT_PLUGIN_OPTIONS.sidebar,
-      ...opts.sidebar,
-    },
   };
   return options;
 };

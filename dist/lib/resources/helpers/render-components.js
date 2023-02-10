@@ -57,17 +57,23 @@ function default_1(theme) {
         if (tables.length > 0)
             md.push(`### Tables\n\n`);
         for (const child2 of tables) {
-            md.push(`\u00a0\u00a0\u00a0\u00a0[${(0, utils_1.camelToSnakeCase)(child2.name)}](../../${(_e = child2.url) === null || _e === void 0 ? void 0 : _e.replace(".md", "")})\n\n`);
+            let url = (_e = child2.url) === null || _e === void 0 ? void 0 : _e.replace(".md", "");
+            url = "../../" + url;
+            md.push(`\u00a0\u00a0\u00a0\u00a0[${(0, utils_1.camelToSnakeCase)(child2.name)}](${url})\n\n`);
         }
         if (methods.length > 0)
             md.push(`### Functions\n`);
         for (const child2 of methods) {
-            md.push(`\u00a0\u00a0\u00a0\u00a0[${(0, utils_1.camelToSnakeCase)(child2.name)}](../../${(_f = child2.url) === null || _f === void 0 ? void 0 : _f.replace(".md", "")})\n\n`);
+            let url = (_f = child2.url) === null || _f === void 0 ? void 0 : _f.replace(".md", "");
+            url = "../../" + url;
+            md.push(`\u00a0\u00a0\u00a0\u00a0[${(0, utils_1.camelToSnakeCase)(child2.name)}](${url})\n\n`);
         }
         if (enums.length > 0)
             md.push(`### Enums\n`);
         for (const child2 of enums) {
-            md.push(`\u00a0\u00a0\u00a0\u00a0[${(0, utils_1.camelToSnakeCase)(child2.name)}](../../${(_g = child2.url) === null || _g === void 0 ? void 0 : _g.replace(".md", "")})\n\n`);
+            let url = (_g = child2.url) === null || _g === void 0 ? void 0 : _g.replace(".md", "");
+            url = "../../" + url;
+            md.push(`\u00a0\u00a0\u00a0\u00a0[${(0, utils_1.camelToSnakeCase)(child2.name)}](${url})\n\n`);
         }
         return md.join("");
     });

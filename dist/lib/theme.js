@@ -106,7 +106,17 @@ class MarkdownTheme extends typedoc_1.Theme {
         return urls;
     }
     toUrl(mapping, reflection) {
-        return mapping.directory + "/" + this.getUrl(reflection) + ".md";
+        const url = this.getUrl(reflection);
+        let fragment = "";
+        if (url.startsWith("aws"))
+            fragment = fragment + "aws";
+        else if (url.startsWith("iasql"))
+            fragment = fragment + "builtin";
+        if (mapping.directory == "enums")
+            fragment = fragment + "/enums";
+        else if (mapping.directory == "classes")
+            fragment = fragment + "/tables";
+        return fragment + "/" + this.getUrl(reflection) + ".md";
     }
     getUrl(reflection, relative) {
         let url = reflection.getAlias();
@@ -254,12 +264,6 @@ class MarkdownTheme extends typedoc_1.Theme {
                         kind: [typedoc_1.ReflectionKind.Variable],
                         isLeaf: true,
                         directory: "variables",
-                        template: this.getReflectionMemberTemplate(),
-                    },
-                    {
-                        kind: [typedoc_1.ReflectionKind.Function],
-                        isLeaf: true,
-                        directory: "functions",
                         template: this.getReflectionMemberTemplate(),
                     },
                 ]

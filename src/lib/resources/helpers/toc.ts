@@ -3,6 +3,66 @@ import { DeclarationReflection, ProjectReflection } from "typedoc";
 import { MarkdownTheme } from "../../theme";
 import { camelToSnakeCase } from "../../utils";
 
+function displayChild(
+  child: DeclarationReflection,
+  children: DeclarationReflection[]
+) {
+  const md: string[] = [];
+
+  // it is a module, print it
+  md.push(`### [${child.name}](${child.url})\n\n`);
+
+  // now need to find the depending modules
+  const tables: DeclarationReflection[] = [];
+  const methods: DeclarationReflection[] = [];
+  const enums: DeclarationReflection[] = [];
+
+  const filtered = children?.filter(
+    (x) =>
+      x.name.includes(child.name) &&
+      (x.name.includes("entity") || x.name.includes("rpc"))
+  );
+
+  for (const filt of filtered) {
+    for (const item of filt.children ?? []) {
+      if (item.kindString == "Class" && !item.url?.includes("rpc"))
+        tables.push(item);
+      if (item.kindString == "Class" && item.url?.includes("rpc"))
+        methods.push(item);
+      if (item.kindString == "Enumeration") enums.push(item);
+    }
+  }
+
+  // display them
+  if (tables.length > 0) md.push("&nbsp;&nbsp;**Tables**\n");
+  for (const child2 of tables) {
+    md.push(
+      `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${camelToSnakeCase(child2.name)}](${
+        child2.url
+      })\n\n`
+    );
+  }
+  if (methods.length > 0) md.push("&nbsp;&nbsp;**Functions**\n");
+
+  for (const child2 of methods) {
+    md.push(
+      `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${camelToSnakeCase(child2.name)}](${
+        child2.url
+      })\n\n`
+    );
+  }
+  if (enums.length > 0) md.push("&nbsp;&nbsp;**Enums**\n");
+
+  for (const child2 of enums) {
+    md.push(
+      `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${camelToSnakeCase(child2.name)}](${
+        child2.url
+      })\n\n`
+    );
+  }
+  return md;
+}
+
 export default function (theme: MarkdownTheme) {
   Handlebars.registerHelper(
     "toc",
@@ -17,79 +77,39 @@ export default function (theme: MarkdownTheme) {
 
       if ((!hideInPageTOC && this.groups) || (isVisible && this.groups)) {
         if (!hideInPageTOC) {
-          md.push(`## Table of contents\n\n`);
+          md.push(`# Table of contents\n\n`);
         }
 
-        let sortedChildren = this.children ?? [];
-        sortedChildren.sort(function (x, y) {
-          return x.name == "iasql_functions"
-            ? -1
-            : y.name == "iasql_functions"
-            ? 1
-            : 0;
-        });
-        // traverse all children with parent id = 0
-        for (const child of sortedChildren) {
-          if (
+        // builtin
+        const builtin = this.children?.filter(
+          (child) =>
             child.parent?.id == 0 &&
             child.kind == 2 &&
-            !child.name.includes("/") &&
-            !child.name.includes("ecs_simplified") &&
-            !child.name.includes("index") &&
-            !child.name.includes("interfaces") &&
-            !child.name.includes("subscribers")
-          ) {
-            // it is a module, print it
-            md.push(`### [${child.name}](${child.url})\n\n`);
+            child.url?.startsWith("builtin")
+        );
 
-            // now need to find the depending modules
-            const tables: DeclarationReflection[] = [];
-            const methods: DeclarationReflection[] = [];
-            const enums: DeclarationReflection[] = [];
+        md.push("## Builtin");
 
-            const filtered = sortedChildren?.filter(
-              (x) =>
-                x.name.includes(child.name) &&
-                (x.name.includes("entity") || x.name.includes("rpc"))
-            );
+        for (const child of builtin ?? []) {
+          if (child.name == "iasql_functions") {
+            const content = displayChild(child, builtin ?? []);
+            md.push(...content);
+          }
+        }
 
-            for (const filt of filtered) {
-              for (const item of filt.children ?? []) {
-                if (item.kindString == "Class" && !item.url?.includes("rpc"))
-                  tables.push(item);
-                if (item.kindString == "Class" && item.url?.includes("rpc"))
-                  methods.push(item);
-                if (item.kindString == "Enumeration") enums.push(item);
-              }
-            }
+        // aws
+        const aws = this.children?.filter(
+          (child) =>
+            child.parent?.id == 0 &&
+            child.kind == 2 &&
+            child.url?.startsWith("aws")
+        );
+        md.push("## AWS");
 
-            // display them
-            if (tables.length > 0) md.push("&nbsp;&nbsp;**Tables**\n");
-            for (const child2 of tables) {
-              md.push(
-                `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${camelToSnakeCase(
-                  child2.name
-                )}](${child2.url})\n\n`
-              );
-            }
-            if (methods.length > 0) md.push("&nbsp;&nbsp;**Functions**\n");
-
-            for (const child2 of methods) {
-              md.push(
-                `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${camelToSnakeCase(
-                  child2.name
-                )}](${child2.url})\n\n`
-              );
-            }
-            if (enums.length > 0) md.push("&nbsp;&nbsp;**Enums**\n");
-
-            for (const child2 of enums) {
-              md.push(
-                `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[${camelToSnakeCase(
-                  child2.name
-                )}](${child2.url})\n\n`
-              );
-            }
+        for (const child of aws ?? []) {
+          if (!child.name.includes("/")) {
+            const content = displayChild(child, aws ?? []);
+            md.push(...content);
           }
         }
       }

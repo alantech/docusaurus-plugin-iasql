@@ -141,7 +141,15 @@ export class MarkdownTheme extends Theme {
   }
 
   toUrl(mapping: any, reflection: DeclarationReflection) {
-    return mapping.directory + "/" + this.getUrl(reflection) + ".md";
+    const url = this.getUrl(reflection);
+    let fragment = "";
+    if (url.startsWith("aws")) fragment = fragment + "aws";
+    else if (url.startsWith("iasql")) fragment = fragment + "builtin";
+
+    if (mapping.directory == "enums") fragment = fragment + "/enums";
+    else if (mapping.directory == "classes") fragment = fragment + "/tables";
+
+    return fragment + "/" + this.getUrl(reflection) + ".md";
   }
 
   getUrl(reflection: Reflection, relative?: Reflection): string {
@@ -340,12 +348,6 @@ export class MarkdownTheme extends Theme {
               kind: [ReflectionKind.Variable],
               isLeaf: true,
               directory: "variables",
-              template: this.getReflectionMemberTemplate(),
-            },
-            {
-              kind: [ReflectionKind.Function],
-              isLeaf: true,
-              directory: "functions",
               template: this.getReflectionMemberTemplate(),
             },
           ]

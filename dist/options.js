@@ -2,19 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPluginOptions = void 0;
 const DEFAULT_PLUGIN_OPTIONS = {
-    id: "aws",
+    id: "modules",
     docsRoot: "docs",
-    out: "aws",
+    out: "modules",
     cleanOutputDir: true,
-    sidebar: {
-        fullNames: false,
-        categoryLabel: "Modules",
-        indexLabel: undefined,
-        readmeLabel: "Modules",
-        position: null,
-        autoConfiguration: true,
-        usedSidebar: "docs",
-    },
     hideInPageTOC: true,
     hideBreadcrumbs: true,
     hidePageTitle: true,
@@ -31,10 +22,6 @@ const getPluginOptions = (opts) => {
     const options = {
         ...DEFAULT_PLUGIN_OPTIONS,
         ...opts,
-        sidebar: {
-            ...DEFAULT_PLUGIN_OPTIONS.sidebar,
-            ...opts.sidebar,
-        },
     };
     return options;
 };
