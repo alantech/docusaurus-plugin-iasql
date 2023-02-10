@@ -116,8 +116,6 @@ class MarkdownTheme extends typedoc_1.Theme {
             fragment = fragment + "/enums";
         else if (mapping.directory == "classes")
             fragment = fragment + "/tables";
-        else if (mapping.directory == "modules" && url.includes("rpcs"))
-            fragment = fragment + "/functions";
         return fragment + "/" + this.getUrl(reflection) + ".md";
     }
     getUrl(reflection, relative) {
@@ -266,12 +264,6 @@ class MarkdownTheme extends typedoc_1.Theme {
                         kind: [typedoc_1.ReflectionKind.Variable],
                         isLeaf: true,
                         directory: "variables",
-                        template: this.getReflectionMemberTemplate(),
-                    },
-                    {
-                        kind: [typedoc_1.ReflectionKind.Function],
-                        isLeaf: true,
-                        directory: "functions",
                         template: this.getReflectionMemberTemplate(),
                     },
                 ]

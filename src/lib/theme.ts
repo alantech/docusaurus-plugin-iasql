@@ -148,8 +148,6 @@ export class MarkdownTheme extends Theme {
 
     if (mapping.directory == "enums") fragment = fragment + "/enums";
     else if (mapping.directory == "classes") fragment = fragment + "/tables";
-    else if (mapping.directory == "modules" && url.includes("rpcs"))
-      fragment = fragment + "/functions";
 
     return fragment + "/" + this.getUrl(reflection) + ".md";
   }
@@ -350,12 +348,6 @@ export class MarkdownTheme extends Theme {
               kind: [ReflectionKind.Variable],
               isLeaf: true,
               directory: "variables",
-              template: this.getReflectionMemberTemplate(),
-            },
-            {
-              kind: [ReflectionKind.Function],
-              isLeaf: true,
-              directory: "functions",
               template: this.getReflectionMemberTemplate(),
             },
           ]
