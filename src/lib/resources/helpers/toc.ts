@@ -1,7 +1,6 @@
 import * as Handlebars from "handlebars";
 import { DeclarationReflection, ProjectReflection } from "typedoc";
 import { MarkdownTheme } from "../../theme";
-import { camelToSnakeCase } from "../../utils";
 
 function displayChild(
   child: DeclarationReflection,
@@ -10,10 +9,10 @@ function displayChild(
   const md: string[] = [];
 
   // it is a module, print it
-  md.push(`### [${child.name}](${child.url})\n\n`);
+  md.push(`#### [${child.name}](${child.url})\n\n`);
 
   // now need to find the depending modules
-  const tables: DeclarationReflection[] = [];
+  /*const tables: DeclarationReflection[] = [];
   const methods: DeclarationReflection[] = [];
   const enums: DeclarationReflection[] = [];
 
@@ -59,7 +58,7 @@ function displayChild(
         child2.url
       })\n\n`
     );
-  }
+  }*/
   return md;
 }
 
@@ -77,7 +76,7 @@ export default function (theme: MarkdownTheme) {
 
       if ((!hideInPageTOC && this.groups) || (isVisible && this.groups)) {
         if (!hideInPageTOC) {
-          md.push(`# Table of contents\n\n`);
+          md.push(`## Table of contents\n\n`);
         }
 
         // builtin
@@ -88,7 +87,7 @@ export default function (theme: MarkdownTheme) {
             child.url?.startsWith("builtin")
         );
 
-        md.push("## Builtin");
+        md.push("### Builtin");
 
         for (const child of builtin ?? []) {
           if (child.name == "iasql_functions") {
@@ -104,7 +103,7 @@ export default function (theme: MarkdownTheme) {
             child.kind == 2 &&
             child.url?.startsWith("aws")
         );
-        md.push("## AWS");
+        md.push("### AWS");
 
         for (const child of aws ?? []) {
           if (!child.name.includes("/")) {
