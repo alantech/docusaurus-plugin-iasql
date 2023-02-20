@@ -97,7 +97,8 @@ function default_1(theme) {
             });
             md.push("### Builtin");
             for (const child of builtin !== null && builtin !== void 0 ? builtin : []) {
-                if (child.name == "iasql_functions") {
+                if (child.name == "iasql_functions" ||
+                    child.name == "iasql_platform") {
                     const content = displayChild(child, builtin !== null && builtin !== void 0 ? builtin : []);
                     md.push(...content);
                 }
