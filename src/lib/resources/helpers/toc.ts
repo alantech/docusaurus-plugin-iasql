@@ -90,7 +90,10 @@ export default function (theme: MarkdownTheme) {
         md.push("### Builtin");
 
         for (const child of builtin ?? []) {
-          if (child.name == "iasql_functions") {
+          if (
+            child.name == "iasql_functions" ||
+            child.name == "iasql_platform"
+          ) {
             const content = displayChild(child, builtin ?? []);
             md.push(...content);
           }
