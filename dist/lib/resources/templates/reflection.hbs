@@ -6,12 +6,12 @@ import TabItem from '@theme/TabItem';
 {{#with model}}
 
 {{#ifIsModule this}}
-<Tabs>
-  <TabItem value="Components" label="Components" default>
+<Tabs queryString="view">
+  <TabItem value="components" label="Components" default>
 
 {{renderComponents}}
 </TabItem>
-  <TabItem value="Code examples" label="Code examples">
+  <TabItem value="code-examples" label="Code examples">
 {{> comment}}
 {{> main}}
 
