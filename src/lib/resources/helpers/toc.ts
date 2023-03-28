@@ -4,7 +4,7 @@ import { MarkdownTheme } from "../../theme";
 
 function displayChild(
   child: DeclarationReflection,
-  children: DeclarationReflection[]
+  _children: DeclarationReflection[]
 ) {
   const md: string[] = [];
 
@@ -111,6 +111,22 @@ export default function (theme: MarkdownTheme) {
         for (const child of aws ?? []) {
           if (!child.name.includes("/")) {
             const content = displayChild(child, aws ?? []);
+            md.push(...content);
+          }
+        }
+
+        // ssh
+        const ssh = this.children?.filter(
+          (child) =>
+            child.parent?.id == 0 &&
+            child.kind == 2 &&
+            child.url?.startsWith("ssh")
+        );
+        md.push("### Server (via SSH)");
+
+        for (const child of ssh ?? []) {
+          if (!child.name.includes("/")) {
+            const content = displayChild(child, ssh ?? []);
             md.push(...content);
           }
         }

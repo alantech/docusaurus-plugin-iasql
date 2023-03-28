@@ -112,6 +112,12 @@ class MarkdownTheme extends typedoc_1.Theme {
             fragment = fragment + "aws";
         else if (url.startsWith("iasql"))
             fragment = fragment + "builtin";
+        else if (url.startsWith("ssh"))
+            fragment = fragment + "ssh";
+        else if (['index', 'interfaces', 'subscribers',].includes(url))
+            fragment = fragment; // Known static elements to skip
+        else
+            throw new Error(`Unsupported module type ${url}, please update the docusaurus plugin!`);
         if (mapping.directory == "enums")
             fragment = fragment + "/enums";
         else if (mapping.directory == "classes")
@@ -292,5 +298,5 @@ class MarkdownTheme extends typedoc_1.Theme {
         return "sql.md";
     }
 }
-exports.MarkdownTheme = MarkdownTheme;
 MarkdownTheme.URL_PREFIX = /^(http|ftp)s?:\/\//;
+exports.MarkdownTheme = MarkdownTheme;
