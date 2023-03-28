@@ -114,7 +114,7 @@ class MarkdownTheme extends typedoc_1.Theme {
             fragment = fragment + "builtin";
         else if (url.startsWith("ssh"))
             fragment = fragment + "ssh";
-        else if (['index'].includes(url))
+        else if (['index', 'interfaces', 'subscribers',].includes(url))
             fragment = fragment; // Known static elements to skip
         else
             throw new Error(`Unsupported module type ${url}, please update the docusaurus plugin!`);
