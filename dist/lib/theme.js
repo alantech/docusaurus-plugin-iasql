@@ -298,5 +298,5 @@ class MarkdownTheme extends typedoc_1.Theme {
         return "sql.md";
     }
 }
-exports.MarkdownTheme = MarkdownTheme;
 MarkdownTheme.URL_PREFIX = /^(http|ftp)s?:\/\//;
+exports.MarkdownTheme = MarkdownTheme;

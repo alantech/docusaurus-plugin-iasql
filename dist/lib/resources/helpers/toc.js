@@ -125,7 +125,7 @@ function default_1(theme) {
                     ((_b = child.url) === null || _b === void 0 ? void 0 : _b.startsWith("ssh"));
             });
             md.push("### Server (via SSH)");
-            for (const child of aws !== null && aws !== void 0 ? aws : []) {
+            for (const child of ssh !== null && ssh !== void 0 ? ssh : []) {
                 if (!child.name.includes("/")) {
                     const content = displayChild(child, ssh !== null && ssh !== void 0 ? ssh : []);
                     md.push(...content);

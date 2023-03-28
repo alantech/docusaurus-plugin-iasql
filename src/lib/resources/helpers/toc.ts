@@ -124,7 +124,7 @@ export default function (theme: MarkdownTheme) {
         );
         md.push("### Server (via SSH)");
 
-        for (const child of aws ?? []) {
+        for (const child of ssh ?? []) {
           if (!child.name.includes("/")) {
             const content = displayChild(child, ssh ?? []);
             md.push(...content);
