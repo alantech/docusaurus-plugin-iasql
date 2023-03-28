@@ -146,7 +146,7 @@ export class MarkdownTheme extends Theme {
     if (url.startsWith("aws")) fragment = fragment + "aws";
     else if (url.startsWith("iasql")) fragment = fragment + "builtin";
     else if (url.startsWith("ssh")) fragment = fragment + "ssh";
-    else throw new Error('Unsupported module type, please update the docusaurus plugin!');
+    else throw new Error(`Unsupported module type ${url}, please update the docusaurus plugin!`);
 
     if (mapping.directory == "enums") fragment = fragment + "/enums";
     else if (mapping.directory == "classes") fragment = fragment + "/tables";
