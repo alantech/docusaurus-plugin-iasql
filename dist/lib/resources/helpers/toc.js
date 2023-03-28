@@ -24,7 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Handlebars = __importStar(require("handlebars"));
-function displayChild(child, children) {
+function displayChild(child, _children) {
     const md = [];
     // it is a module, print it
     md.push(`#### [${child.name}](${child.url})\n\n`);
@@ -80,7 +80,7 @@ function displayChild(child, children) {
 }
 function default_1(theme) {
     Handlebars.registerHelper("toc", function () {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const md = [];
         const { hideInPageTOC } = theme;
         const isVisible = (_a = this.groups) === null || _a === void 0 ? void 0 : _a.some((group) => group.allChildrenHaveOwnDocument());
@@ -114,6 +114,20 @@ function default_1(theme) {
             for (const child of aws !== null && aws !== void 0 ? aws : []) {
                 if (!child.name.includes("/")) {
                     const content = displayChild(child, aws !== null && aws !== void 0 ? aws : []);
+                    md.push(...content);
+                }
+            }
+            // ssh
+            const ssh = (_d = this.children) === null || _d === void 0 ? void 0 : _d.filter((child) => {
+                var _a, _b;
+                return ((_a = child.parent) === null || _a === void 0 ? void 0 : _a.id) == 0 &&
+                    child.kind == 2 &&
+                    ((_b = child.url) === null || _b === void 0 ? void 0 : _b.startsWith("ssh"));
+            });
+            md.push("### Server (via SSH)");
+            for (const child of aws !== null && aws !== void 0 ? aws : []) {
+                if (!child.name.includes("/")) {
+                    const content = displayChild(child, ssh !== null && ssh !== void 0 ? ssh : []);
                     md.push(...content);
                 }
             }
